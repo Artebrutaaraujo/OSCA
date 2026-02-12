@@ -1,0 +1,47 @@
+# OSCA系统忽略文件
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 虚拟环境
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+
+# 运行时生成的文件（不应提交）
+memory/*.md
+!memory/.gitkeep
+memory/instances/
+memory/confusion/
+seeds/exported/
+seeds/imported/
+backups/
+
+# 敏感配置（如果包含真实密钥）
+# .env
+# secrets.yaml
+
+# 备份文件
+*.old
+*.bak
+*.backup

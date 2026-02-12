@@ -1,0 +1,424 @@
+# OSCA-CONFIG.yaml - OSCA 完整分化配置
+
+# ============================================
+# OSCA (Open Stem Cell Agent) 配置中心
+# 版本: 1.0.0 | 维护者: OSCA-Ω
+# ============================================
+
+meta:
+  version: "1.0.0"
+  protocol: "OSCA-Ω"
+  last_updated: "2026-02-12T11:46:00+08:00"
+  min_compatible: "1.0.0"
+
+# ============================================
+# 干细胞核配置 (不可变)
+# ============================================
+nucleus:
+  core_files:
+    - "AGENTS.md"
+    - "SOUL.md"
+    - "IDENTITY.md"
+  
+  dedifferentiation:
+    triggers:
+      - "domain_switch"
+      - "context_overflow"
+      - "user_request"
+      - "identity_conflict"
+    actions:
+      - "save_to_confusion_lib"
+      - "unload_domain_modules"
+      - "reset_to_stem_state"
+
+# ============================================
+# 分化域配置
+# ============================================
+domains:
+
+  # ------------------------------------------
+  # Web开发域 (webdev)
+  # ------------------------------------------
+  webdev:
+    display_name: "Web Development"
+    icon: "🌐"
+    
+    specializations:
+      frontend:
+        name: "Frontend Developer"
+        tech_stack:
+          - "HTML5"
+          - "CSS3"
+          - "JavaScript/TypeScript"
+          - "React"
+          - "Vue.js"
+          - "Tailwind CSS"
+        file_patterns:
+          - "*.html"
+          - "*.css"
+          - "*.js"
+          - "*.jsx"
+          - "*.ts"
+          - "*.tsx"
+        skills:
+          - "web_frameworks"
+          - "ui_design"
+          - "responsive_design"
+          
+      backend:
+        name: "Backend Developer"
+        tech_stack:
+          - "Node.js"
+          - "Python/FastAPI"
+          - "PostgreSQL"
+          - "Redis"
+          - "Docker"
+        file_patterns:
+          - "*.py"
+          - "*.js"
+          - "*.sql"
+          - "docker-compose.yml"
+        skills:
+          - "api_development"
+          - "database_design"
+          - "server_management"
+          
+      fullstack:
+        name: "Full Stack Developer"
+        inherits:
+          - "webdev.frontend"
+          - "webdev.backend"
+        additional_skills:
+          - "system_architecture"
+          - "deployment"
+
+  # ------------------------------------------
+  # 游戏开发域 (gamedev)
+  # ------------------------------------------
+  gamedev:
+    display_name: "Game Development"
+    icon: "🎮"
+    
+    specializations:
+      unity:
+        name: "Unity Developer"
+        tech_stack:
+          - "Unity 2022+"
+          - "C#"
+          - "Unity Input System"
+          - "URP/HDRP"
+        file_patterns:
+          - "*.cs"
+          - "*.unity"
+          - "*.prefab"
+          - "*.asset"
+        skills:
+          - "unity_engine"
+          - "csharp_programming"
+          - "game_mechanics"
+          
+      pygame:
+        name: "Pygame Developer"
+        tech_stack:
+          - "Python 3.10+"
+          - "Pygame"
+          - "Pillow"
+        file_patterns:
+          - "*.py"
+          - "*.png"
+          - "*.wav"
+        skills:
+          - "python_game_dev"
+          - "2d_graphics"
+          - "game_loop_design"
+          
+      level_design:
+        name: "Level Designer"
+        tech_stack:
+          - "Level Design Theory"
+          - "Unity Editor"
+          - "Tiled"
+        skills:
+          - "level_design_principles"
+          - "player_psychology"
+          - "pacing_and_flow"
+
+  # ------------------------------------------
+  # 数据分析域 (data)
+  # ------------------------------------------
+  data:
+    display_name: "Data Science"
+    icon: "📊"
+    
+    specializations:
+      analysis:
+        name: "Data Analyst"
+        tech_stack:
+          - "Python/Pandas"
+          - "SQL"
+          - "Jupyter"
+          - "Excel"
+        file_patterns:
+          - "*.csv"
+          - "*.xlsx"
+          - "*.ipynb"
+          - "*.sql"
+        skills:
+          - "data_processing"
+          - "statistical_analysis"
+          - "sql_queries"
+          
+      visualization:
+        name: "Data Visualization"
+        tech_stack:
+          - "Matplotlib"
+          - "Seaborn"
+          - "Plotly"
+          - "D3.js"
+        file_patterns:
+          - "*.html"
+          - "*.py"
+          - "*.json"
+        skills:
+          - "chart_design"
+          - "dashboard_creation"
+          - "visual_storytelling"
+          
+      ml:
+        name: "Machine Learning"
+        tech_stack:
+          - "Scikit-learn"
+          - "TensorFlow/PyTorch"
+          - "Pandas/NumPy"
+        file_patterns:
+          - "*.py"
+          - "*.pkl"
+          - "*.h5"
+        skills:
+          - "model_training"
+          - "feature_engineering"
+          - "model_evaluation"
+
+  # ------------------------------------------
+  # 调试与DevOps域 (devops)
+  # ------------------------------------------
+  devops:
+    display_name: "DevOps & Debugging"
+    icon: "🔧"
+    
+    specializations:
+      debug:
+        name: "Debug Specialist"
+        tech_stack:
+          - "Log Analysis"
+          - "Stack Trace Reading"
+          - "Profiler Tools"
+        skills:
+          - "error_diagnosis"
+          - "root_cause_analysis"
+          - "fix_verification"
+          
+      deployment:
+        name: "Deployment Engineer"
+        tech_stack:
+          - "Docker"
+          - "Kubernetes"
+          - "CI/CD"
+          - "Cloud Platforms"
+        skills:
+          - "containerization"
+          - "pipeline_design"
+          - "infrastructure_as_code"
+
+  # ------------------------------------------
+  # 元系统域 (meta)
+  # ------------------------------------------
+  meta:
+    display_name: "Meta & System"
+    icon: "🧬"
+    
+    specializations:
+      osca_admin:
+        name: "OSCA Administrator"
+        identity_ref: "IDENTITY.md"
+        skills:
+          - "_stem-cell"
+          - "system_configuration"
+          - "seed_management"
+          
+      protocol_dev:
+        name: "Protocol Developer"
+        skills:
+          - "agent_architecture"
+          - "protocol_design"
+          - "version_management"
+
+# ============================================
+# 分化触发器配置
+# ============================================
+differentiation:
+  # 关键词到域的映射
+  triggers:
+    webdev:
+      keywords:
+        - "website"
+        - "web"
+        - "frontend"
+        - "backend"
+        - "react"
+        - "vue"
+        - "html"
+        - "css"
+        - "api"
+      confidence_threshold: 0.7
+      
+    gamedev:
+      keywords:
+        - "game"
+        - "unity"
+        - "pygame"
+        - "level"
+        - "mechanic"
+        - "player"
+        - "sprite"
+      confidence_threshold: 0.7
+      
+    data:
+      keywords:
+        - "data"
+        - "csv"
+        - "analysis"
+        - "pandas"
+        - "chart"
+        - "ml"
+        - "machine learning"
+      confidence_threshold: 0.7
+      
+    devops:
+      keywords:
+        - "debug"
+        - "deploy"
+        - "docker"
+        - "error"
+        - "bug"
+        - "fix"
+      confidence_threshold: 0.6
+      
+    meta:
+      keywords:
+        - "osca"
+        - "meta"
+        - "protocol"
+        - "seed"
+        - "agent"
+        - "configuration"
+      confidence_threshold: 0.8
+
+# ============================================
+# 技能加载配置
+# ============================================
+skills:
+  base_path: "skills"
+  
+  # 所有智能体都加载的基础技能
+  universal:
+    - "_stem-cell"
+    
+  # 域特定技能映射
+  domain_skills:
+    webdev:
+      - "web_frameworks"
+      - "database_design"
+      - "api_development"
+      - "ui_components"
+    gamedev:
+      - "game_engines"
+      - "level_design"
+      - "game_mechanics"
+      - "asset_management"
+    data:
+      - "data_processing"
+      - "visualization"
+      - "statistical_analysis"
+      - "ml_basics"
+
+# ============================================
+# 安全边界配置 (细胞膜)
+# ============================================
+membrane:
+  # 文件系统权限
+  filesystem:
+    read:
+      allowed: ["*"]
+    write:
+      allowed:
+        - "${WORKSPACE}/*"
+        - "memory/*"
+        - "docs/*"
+      denied:
+        - "AGENTS.md"
+        - "OSCA-CONFIG.yaml"
+    execute:
+      allowed:
+        - "scripts/*"
+        - "*.bat"
+        - "*.sh"
+        - "*.py"
+  
+  # 网络权限
+  network:
+    fetch_allowed: true
+    upload_requires_confirm: true
+    
+  # 高风险操作阈值
+  risk_thresholds:
+    file_delete_count: 10
+    file_write_size_mb: 100
+    external_api_calls: true
+
+# ============================================
+# 记忆配置
+# ============================================
+memory:
+  # 每日记忆
+  daily_log_path: "memory/${YYYY-MM-DD}.md"
+  
+  # 长期记忆
+  long_term: "MEMORY.md"
+  
+  # 困惑库
+  confusion_lib:
+    path: "memory/confusion/"
+    max_entries: 100
+    archive_after_days: 30
+    
+  # 自动归档
+  auto_archive:
+    enabled: true
+    check_interval_days: 7
+
+# ============================================
+# 心跳与维护
+# ============================================
+heartbeat:
+  enabled: true
+  interval_minutes: 30
+  
+  tasks:
+    - "check_confusion_lib"
+    - "archive_old_memories"
+    - "verify_skill_integrity"
+    - "report_status"
+
+# ============================================
+# 种子管理
+# ============================================
+seed_management:
+  export_path: "seeds/exported"
+  import_path: "seeds/imported"
+  template_path: "seeds/templates"
+  
+  validation:
+    check_required_fields: true
+    verify_skill_existence: true
+    check_version_compatibility: true
