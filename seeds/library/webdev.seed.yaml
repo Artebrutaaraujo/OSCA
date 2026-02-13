@@ -1,0 +1,101 @@
+# OSCA Seed - Web Development Domain
+# Web开发领域种子
+
+seed:
+  meta:
+    version: "1.0.0"
+    seed_id: "osca-webdev-001"
+    name: "webdev"
+    display_name: "Web Development"
+    icon: "🌐"
+    protocol: "OSCA-Ω"
+    compatible_osca: ">= 1.0.0"
+    description: "Web开发领域 - 前端、后端、全栈开发"
+
+  identity:
+    name: "OSCA-WebDev"
+    domain: "webdev"
+    specializations:
+      - frontend
+      - backend
+      - fullstack
+
+  nucleus:
+    inherits:
+      - "AGENTS.md"
+      - "SOUL.md"
+    
+    differentiation_triggers:
+      keywords:
+        - "website"
+        - "web"
+        - "frontend"
+        - "backend"
+        - "react"
+        - "vue"
+        - "html"
+        - "css"
+        - "api"
+      confidence_threshold: 0.7
+
+  cytoplasm:
+    specializations:
+      frontend:
+        name: "Frontend Developer"
+        tech_stack:
+          - "HTML5"
+          - "CSS3"
+          - "JavaScript/TypeScript"
+          - "React"
+          - "Vue.js"
+          - "Tailwind CSS"
+        file_patterns:
+          - "*.html"
+          - "*.css"
+          - "*.js"
+          - "*.jsx"
+          - "*.ts"
+          - "*.tsx"
+        
+      backend:
+        name: "Backend Developer"
+        tech_stack:
+          - "Node.js"
+          - "Python/FastAPI"
+          - "PostgreSQL"
+          - "Redis"
+          - "Docker"
+        file_patterns:
+          - "*.py"
+          - "*.js"
+          - "*.sql"
+          - "docker-compose.yml"
+        
+      fullstack:
+        name: "Full Stack Developer"
+        inherits:
+          - "webdev.frontend"
+          - "webdev.backend"
+
+  membrane:
+    filesystem:
+      read:
+        allowed: ["*"]
+      write:
+        allowed:
+          - "${WORKSPACE}/*"
+          - "memory/*"
+          - "docs/*"
+
+  skills:
+    universal:
+      - "_stem-cell"
+    domain:
+      - "web_frameworks"
+      - "database_design"
+      - "api_development"
+      - "ui_components"
+
+  cell:
+    cell_file: "cells/webdev.cell"
+    cell_type: "skill_manifest"

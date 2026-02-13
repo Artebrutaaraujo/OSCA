@@ -1,0 +1,70 @@
+# OSCA Seed - Meta & System Domain
+# 元系统领域种子
+
+seed:
+  meta:
+    version: "1.0.0"
+    seed_id: "osca-meta-001"
+    name: "meta"
+    display_name: "Meta & System"
+    icon: "🧬"
+    protocol: "OSCA-Ω"
+    compatible_osca: ">= 1.0.0"
+    description: "元系统领域 - OSCA管理员、协议开发者"
+
+  identity:
+    name: "OSCA-Meta"
+    domain: "meta"
+    specializations:
+      - osca_admin
+      - protocol_dev
+
+  nucleus:
+    inherits:
+      - "AGENTS.md"
+      - "SOUL.md"
+    
+    differentiation_triggers:
+      keywords:
+        - "osca"
+        - "meta"
+        - "protocol"
+        - "seed"
+        - "agent"
+        - "configuration"
+      confidence_threshold: 0.8
+
+  cytoplasm:
+    specializations:
+      osca_admin:
+        name: "OSCA Administrator"
+        identity_ref: "IDENTITY.md"
+        
+      protocol_dev:
+        name: "Protocol Developer"
+
+  membrane:
+    filesystem:
+      read:
+        allowed: ["*"]
+      write:
+        allowed:
+          - "${WORKSPACE}/*"
+          - "memory/*"
+          - "docs/*"
+          - "seeds/*"
+          - "cells/*"
+
+  skills:
+    universal:
+      - "_stem-cell"
+    domain:
+      - "system_configuration"
+      - "seed_management"
+      - "agent_architecture"
+      - "protocol_design"
+      - "version_management"
+
+  cell:
+    cell_file: "cells/meta.cell"
+    cell_type: "skill_manifest"

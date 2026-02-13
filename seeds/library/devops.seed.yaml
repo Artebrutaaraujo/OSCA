@@ -1,0 +1,70 @@
+# OSCA Seed - DevOps & Debugging Domain
+# DevOps与调试领域种子
+
+seed:
+  meta:
+    version: "1.0.0"
+    seed_id: "osca-devops-001"
+    name: "devops"
+    display_name: "DevOps & Debugging"
+    icon: "🔧"
+    protocol: "OSCA-Ω"
+    compatible_osca: ">= 1.0.0"
+    description: "DevOps与调试领域 - 调试专家、部署工程师"
+
+  identity:
+    name: "OSCA-DevOps"
+    domain: "devops"
+    specializations:
+      - debug
+      - deployment
+
+  nucleus:
+    inherits:
+      - "AGENTS.md"
+      - "SOUL.md"
+    
+    differentiation_triggers:
+      keywords:
+        - "debug"
+        - "deploy"
+        - "docker"
+        - "error"
+        - "bug"
+        - "fix"
+      confidence_threshold: 0.6
+
+  cytoplasm:
+    specializations:
+      debug:
+        name: "Debug Specialist"
+        tech_stack:
+          - "Log Analysis"
+          - "Stack Trace Reading"
+          - "Profiler Tools"
+        
+      deployment:
+        name: "Deployment Engineer"
+        tech_stack:
+          - "Docker"
+          - "Kubernetes"
+          - "CI/CD"
+          - "Cloud Platforms"
+
+  membrane:
+    filesystem:
+      read:
+        allowed: ["*"]
+      write:
+        allowed:
+          - "${WORKSPACE}/*"
+          - "memory/*"
+          - "docs/*"
+
+  skills:
+    universal:
+      - "_stem-cell"
+
+  cell:
+    cell_file: "cells/devops.cell"
+    cell_type: "skill_manifest"

@@ -1,0 +1,75 @@
+---
+name: skill-name
+skill_id: skill-id
+description: |
+  Skill 描述。
+  包含功能说明、使用场景等。
+version: 1.0.0
+category: category-name
+granularity: fine
+tags:
+  - tag1
+  - tag2
+---
+
+# Skill: {Skill 名称}
+
+## 功能概述
+
+简要描述这个 Skill 的功能。
+
+## 使用场景
+
+- 场景1
+- 场景2
+- 场景3
+
+## 核心概念
+
+### 概念1
+
+解释概念1...
+
+### 概念2
+
+解释概念2...
+
+## 实现方法
+
+### 方法1
+
+```python
+# 代码示例
+def example():
+    pass
+```
+
+### 方法2
+
+```python
+# 代码示例
+def example2():
+    pass
+```
+
+## 参数说明
+
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| param1 | str | "" | 参数1说明 |
+| param2 | int | 0 | 参数2说明 |
+
+## 最佳实践
+
+- ✅ 建议1
+- ✅ 建议2
+- ❌ 避免1
+
+## 相关 Skills
+
+- `related-skill-1` - 相关说明
+- `related-skill-2` - 相关说明
+
+## 版本历史
+
+- v1.0.0 (2026-02-14) - 初始版本

@@ -1,6 +1,6 @@
 # SKILL.md - _stem-cell 元技能
 
-> **OSC 协议实现** | 干细胞技能 | 负责种子全生命周期管理
+> **OSC 协议实现** | 干细胞技能 | 负责种子全生命周期管理 | 版本: 2.0
 
 ---
 
@@ -9,24 +9,35 @@
 ### 1.1 身份定位
 `_stem-cell` 是 OSCA 系统的**元技能**（meta-skill），负责：
 - 种子的创建、验证、导出、导入
+- **v2.0**: Cell 文件的创建和管理
+- **v2.0**: 种子库 (seeds/library/) 的管理
+- **v2.0**: Skills 自动生成的协调
 - 分化信号的识别与处理
 - 去分化流程的执行
 - 干细胞状态的维护
 
-### 1.2 与其他技能的关系
+### 1.2 与其他技能的关系 (v2.0 更新)
 ```
 _stem-cell (你在这里)
     │
     ├──→ 创建所有领域智能体
-    │       ├── webdev/*
-    │       ├── gamedev/*
-    │       └── data/*
+    │       ├── webdev/* (Seed + Cell + Skills)
+    │       ├── gamedev/* (Seed + Cell + Skills)
+    │       └── data/* (Seed + Cell + Skills)
     │
-    └──→ 管理种子生命周期
-            ├── 创建 (create-seed)
-            ├── 验证 (validate-seed)
-            ├── 导出 (export-seed)
-            └── 导入 (import-seed)
+    ├──→ 管理种子生命周期
+    │       ├── 创建 (create-seed)
+    │       ├── 验证 (validate-seed)
+    │       ├── 导出 (export-seed)
+    │       └── 导入 (import-seed)
+    │
+    └──→ v2.0: 管理 Cell 生命周期
+            ├── 创建 (create-cell)
+            ├── 验证 (validate-cell)
+            └── 与 Seed 关联
+
+    └──→ v2.0: 协调 Skills 生成
+            └── auto-generate-skills
 ```
 
 ---
@@ -125,31 +136,33 @@ validate-seed seed_file=seeds/webdev-frontend.yaml strict_mode=true
   recommendation: string - 推荐操作
 ```
 
-**实现逻辑:**
+**实现逻辑 (v2.0 更新):**
 ```python
 def detect_signal(user_input, context=None):
-    # 1. 关键词匹配
-    keyword_scores = match_keywords(user_input)
+    # 1. 从种子库加载所有注册的 Seed
+    seed_library = load_seed_library()
     
-    # 2. 上下文分析
-    if context:
-        context_boost = analyze_context(context)
-        keyword_scores = combine_scores(keyword_scores, context_boost)
-    
-    # 3. 阈值判断
-    signals = []
-    for domain, score in keyword_scores.items():
-        threshold = get_threshold(domain)
+    # 2. 从每个 Seed 读取 differentiation_triggers
+    for seed_id, seed_config in seed_library.items():
+        triggers = seed_config['nucleus']['differentiation_triggers']
+        keywords = triggers['keywords']
+        threshold = triggers['confidence_threshold']
+        
+        # 3. 关键词匹配
+        score = match_keywords(user_input, keywords)
+        
+        # 4. 阈值判断
         if score >= threshold:
             signals.append({
-                "domain": domain,
+                "domain": seed_id,
+                "seed_file": seed_config['meta']['seed_file'],
                 "confidence": score
             })
     
-    # 4. 返回结果
+    # 5. 返回结果
     return {
         "signals": signals,
-        "confidence": keyword_scores,
+        "confidence": {s['domain']: s['confidence'] for s in signals},
         "recommendation": select_best(signals)
     }
 ```
@@ -168,7 +181,7 @@ def detect_signal(user_input, context=None):
   identity: string - 新身份标识
 ```
 
-**分化流程:**
+**分化流程 (v2.0 - 种子库模式):**
 ```
 1. 检查当前状态
      ↓
@@ -176,22 +189,35 @@ def detect_signal(user_input, context=None):
    ├── 是 → 执行 dedifferentiate
    └── 否 → 继续
      ↓
-3. 加载领域配置
-     ├── 读取 OSCA-CONFIG.yaml
-     ├── 提取 domain 配置
-     └── 加载相关技能
+3. 从种子库加载 Seed
+     ├── 从 OSCA-CONFIG.yaml 获取种子引用
+     ├── 读取 seeds/library/{domain}.seed.yaml
+     └── 验证 Seed 完整性
      ↓
-4. 构建新身份
+4. 加载 Cell 文件
+     ├── 从 Seed 获取 cell.cell_file 引用
+     ├── 读取 cells/{domain}.cell
+     └── 验证 Cell 完整性
+     ↓
+5. 加载细粒度 Skills
+     ├── 从 Cell 获取 skill_manifest
+     ├── 根据分化指令选择 Skill 模板
+     ├── 加载模板中的 Skills
+     └── 如 Skill 缺失 → 分析前场 → 自动生成
+     ↓
+6. 构建新身份
      ├── 继承 AGENTS.md
      ├── 继承 SOUL.md
-     └── 应用 domain traits
+     ├── 应用 Seed 中的身份定义
+     ├── 应用 Cell 中的行动模式
+     └── 应用 Cell 中的思维方式
      ↓
-5. 激活新身份
+7. 激活新身份
      ├── 设置 identity_ref
-     ├── 加载 skills
-     └── 执行 init hooks
+     ├── 执行 init hooks
+     └── 报告加载的 Seed/Cell/Skills
      ↓
-6. 返回新状态
+8. 返回新状态
 ```
 
 ### 3.3 执行去分化
@@ -224,6 +250,109 @@ def detect_signal(user_input, context=None):
      └── 加载 _stem-cell 技能
      ↓
 4. 准备接收新任务
+```
+
+---
+
+## 四、分化权限控制 (v2.0)
+
+### 4.1 权限检查流程
+```yaml
+接口: check_differentiation_permission
+描述: 检查分化请求的权限
+参数:
+  target_domain: string - 目标领域
+  current_domain: string - 当前领域
+  action: string - 请求的操作 (differentiate/create/modify)
+返回:
+  permitted: boolean - 是否允许
+  reason: string - 原因说明
+  redirect_to: string (可选) - 建议重定向到的领域
+```
+
+**实现逻辑 (v2.0):**
+```python
+def check_differentiation_permission(target_domain, current_domain, action):
+    # 加载 OSCA-CONFIG.yaml
+    config = load_config("OSCA-CONFIG.yaml")
+    perm_control = config['differentiation']['permission_control']
+    
+    # 检查是否是创建新领域的请求
+    seed_library = config['seed_library']['seeds']
+    if target_domain not in seed_library:
+        # 请求的领域不存在
+        if action == "differentiate":
+            # 普通分化请求到不存在的领域
+            if current_domain == "meta":
+                # 当前在 meta 领域，允许创建
+                return {
+                    "permitted": True,
+                    "reason": "meta 领域拥有创建权限",
+                    "action": "create_new_domain"
+                }
+            else:
+                # 当前不在 meta 领域，拒绝并引导
+                return {
+                    "permitted": False,
+                    "reason": "创建新领域需要 meta 领域权限",
+                    "redirect_to": "meta",
+                    "message": config['differentiation']['missing_domain_messages']['not_in_meta']
+                }
+    
+    # 检查是否是修改协议的请求
+    if action in ["modify_protocol", "modify_agents", "modify_config"]:
+        if current_domain != "meta":
+            return {
+                "permitted": False,
+                "reason": "修改协议需要 meta 领域权限",
+                "redirect_to": "meta"
+            }
+    
+    # 普通分化到已有领域
+    return {"permitted": True}
+```
+
+### 4.2 引导用户到 meta 领域
+```yaml
+接口: redirect_to_meta_for_creation
+描述: 当用户请求创建新领域但不在 meta 领域时，引导用户
+参数:
+  requested_domain: string - 用户请求的领域
+  current_domain: string - 用户当前领域
+返回:
+  message: string - 引导消息
+  command: string - 建议执行的命令
+```
+
+**示例响应:**
+```
+用户请求: /differentiate finance
+当前领域: webdev
+finance 不存在于种子库
+
+系统响应:
+  ⚠️ 无法分化到 "finance" 领域
+  
+  该领域不存在于种子库中。
+  
+  🔐 权限说明:
+  您当前处于 "webdev" 领域，没有创建新领域的权限。
+  只有 "meta" (元系统) 领域拥有此特权。
+  
+  📋 解决步骤:
+  1. 切换到 meta 领域:
+     /differentiate meta osca_admin
+  
+  2. 在 meta 领域中，提出创建请求:
+     "请帮我创建 finance 领域"
+  
+  3. 我将协助您:
+     - 设计 finance 领域的职能定义
+     - 创建 Seed 文件
+     - 配置 Cell 文件
+     - 注册到种子库
+  
+  4. 完成后，您可以分化到 finance 领域
 ```
 
 ---

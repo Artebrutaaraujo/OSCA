@@ -1,0 +1,98 @@
+# OSCA Seed - Data Science Domain
+# 数据分析领域种子
+
+seed:
+  meta:
+    version: "1.0.0"
+    seed_id: "osca-data-001"
+    name: "data"
+    display_name: "Data Science"
+    icon: "📊"
+    protocol: "OSCA-Ω"
+    compatible_osca: ">= 1.0.0"
+    description: "数据分析领域 - 分析、可视化、机器学习"
+
+  identity:
+    name: "OSCA-Data"
+    domain: "data"
+    specializations:
+      - analysis
+      - visualization
+      - ml
+
+  nucleus:
+    inherits:
+      - "AGENTS.md"
+      - "SOUL.md"
+    
+    differentiation_triggers:
+      keywords:
+        - "data"
+        - "csv"
+        - "analysis"
+        - "pandas"
+        - "chart"
+        - "ml"
+        - "machine learning"
+      confidence_threshold: 0.7
+
+  cytoplasm:
+    specializations:
+      analysis:
+        name: "Data Analyst"
+        tech_stack:
+          - "Python/Pandas"
+          - "SQL"
+          - "Jupyter"
+          - "Excel"
+        file_patterns:
+          - "*.csv"
+          - "*.xlsx"
+          - "*.ipynb"
+          - "*.sql"
+        
+      visualization:
+        name: "Data Visualization"
+        tech_stack:
+          - "Matplotlib"
+          - "Seaborn"
+          - "Plotly"
+          - "D3.js"
+        file_patterns:
+          - "*.html"
+          - "*.py"
+          - "*.json"
+        
+      ml:
+        name: "Machine Learning"
+        tech_stack:
+          - "Scikit-learn"
+          - "TensorFlow/PyTorch"
+          - "Pandas/NumPy"
+        file_patterns:
+          - "*.py"
+          - "*.pkl"
+          - "*.h5"
+
+  membrane:
+    filesystem:
+      read:
+        allowed: ["*"]
+      write:
+        allowed:
+          - "${WORKSPACE}/*"
+          - "memory/*"
+          - "docs/*"
+
+  skills:
+    universal:
+      - "_stem-cell"
+    domain:
+      - "data_processing"
+      - "visualization"
+      - "statistical_analysis"
+      - "ml_basics"
+
+  cell:
+    cell_file: "cells/data.cell"
+    cell_type: "skill_manifest"

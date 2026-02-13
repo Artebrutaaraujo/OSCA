@@ -1,0 +1,93 @@
+# OSCA Seed - Game Development Domain
+# 游戏开发领域种子
+
+seed:
+  meta:
+    version: "1.0.0"
+    seed_id: "osca-gamedev-001"
+    name: "gamedev"
+    display_name: "Game Development"
+    icon: "🎮"
+    protocol: "OSCA-Ω"
+    compatible_osca: ">= 1.0.0"
+    description: "游戏开发领域 - Unity、Pygame、关卡设计"
+
+  identity:
+    name: "OSCA-GameDev"
+    domain: "gamedev"
+    specializations:
+      - unity
+      - pygame
+      - level_design
+
+  nucleus:
+    inherits:
+      - "AGENTS.md"
+      - "SOUL.md"
+    
+    differentiation_triggers:
+      keywords:
+        - "game"
+        - "unity"
+        - "pygame"
+        - "level"
+        - "mechanic"
+        - "player"
+        - "sprite"
+      confidence_threshold: 0.7
+
+  cytoplasm:
+    specializations:
+      unity:
+        name: "Unity Developer"
+        tech_stack:
+          - "Unity 2022+"
+          - "C#"
+          - "Unity Input System"
+          - "URP/HDRP"
+        file_patterns:
+          - "*.cs"
+          - "*.unity"
+          - "*.prefab"
+          - "*.asset"
+        
+      pygame:
+        name: "Pygame Developer"
+        tech_stack:
+          - "Python 3.10+"
+          - "Pygame"
+          - "Pillow"
+        file_patterns:
+          - "*.py"
+          - "*.png"
+          - "*.wav"
+        
+      level_design:
+        name: "Level Designer"
+        tech_stack:
+          - "Level Design Theory"
+          - "Unity Editor"
+          - "Tiled"
+
+  membrane:
+    filesystem:
+      read:
+        allowed: ["*"]
+      write:
+        allowed:
+          - "${WORKSPACE}/*"
+          - "memory/*"
+          - "docs/*"
+
+  skills:
+    universal:
+      - "_stem-cell"
+    domain:
+      - "game_engines"
+      - "level_design"
+      - "game_mechanics"
+      - "asset_management"
+
+  cell:
+    cell_file: "cells/gamedev.cell"
+    cell_type: "skill_manifest"

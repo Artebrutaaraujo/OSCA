@@ -1,15 +1,13 @@
-# OSCA-CONFIG.yaml - OSCA 完整分化配置
-
-# ============================================
-# OSCA (Open Stem Cell Agent) 配置中心
-# 版本: 1.0.0 | 维护者: OSCA-Ω
+# OSCA-CONFIG.yaml - OSCA 配置中心
+# 版本: 2.0.0 | 架构: 种子库模式
 # ============================================
 
 meta:
-  version: "1.0.0"
+  version: "2.0.0"
   protocol: "OSCA-Ω"
-  last_updated: "2026-02-12T11:46:00+08:00"
-  min_compatible: "1.0.0"
+  last_updated: "2026-02-14T00:15:00+08:00"
+  min_compatible: "2.0.0"
+  changes: "重构为种子库模式，领域配置分离到独立种子文件"
 
 # ============================================
 # 干细胞核配置 (不可变)
@@ -32,321 +30,181 @@ nucleus:
       - "reset_to_stem_state"
 
 # ============================================
-# 分化域配置
+# 种子库配置 (Seed Library)
 # ============================================
-domains:
+# 
+# 架构变更说明:
+#   v1.x: 领域配置直接内嵌在 OSCA-CONFIG.yaml
+#   v2.0: 领域配置分离到 seeds/library/*.seed.yaml
+#
+# 优势:
+#   - 领域配置独立管理，便于版本控制
+#   - 支持动态加载新领域种子
+#   - 种子可单独分发和共享
+#   - OSCA-CONFIG.yaml 保持精简
 
-  # ------------------------------------------
-  # Web开发域 (webdev)
-  # ------------------------------------------
-  webdev:
-    display_name: "Web Development"
-    icon: "🌐"
-    
-    specializations:
-      frontend:
-        name: "Frontend Developer"
-        tech_stack:
-          - "HTML5"
-          - "CSS3"
-          - "JavaScript/TypeScript"
-          - "React"
-          - "Vue.js"
-          - "Tailwind CSS"
-        file_patterns:
-          - "*.html"
-          - "*.css"
-          - "*.js"
-          - "*.jsx"
-          - "*.ts"
-          - "*.tsx"
-        skills:
-          - "web_frameworks"
-          - "ui_design"
-          - "responsive_design"
-          
-      backend:
-        name: "Backend Developer"
-        tech_stack:
-          - "Node.js"
-          - "Python/FastAPI"
-          - "PostgreSQL"
-          - "Redis"
-          - "Docker"
-        file_patterns:
-          - "*.py"
-          - "*.js"
-          - "*.sql"
-          - "docker-compose.yml"
-        skills:
-          - "api_development"
-          - "database_design"
-          - "server_management"
-          
-      fullstack:
-        name: "Full Stack Developer"
-        inherits:
-          - "webdev.frontend"
-          - "webdev.backend"
-        additional_skills:
-          - "system_architecture"
-          - "deployment"
-
-  # ------------------------------------------
-  # 游戏开发域 (gamedev)
-  # ------------------------------------------
-  gamedev:
-    display_name: "Game Development"
-    icon: "🎮"
-    
-    specializations:
-      unity:
-        name: "Unity Developer"
-        tech_stack:
-          - "Unity 2022+"
-          - "C#"
-          - "Unity Input System"
-          - "URP/HDRP"
-        file_patterns:
-          - "*.cs"
-          - "*.unity"
-          - "*.prefab"
-          - "*.asset"
-        skills:
-          - "unity_engine"
-          - "csharp_programming"
-          - "game_mechanics"
-          
-      pygame:
-        name: "Pygame Developer"
-        tech_stack:
-          - "Python 3.10+"
-          - "Pygame"
-          - "Pillow"
-        file_patterns:
-          - "*.py"
-          - "*.png"
-          - "*.wav"
-        skills:
-          - "python_game_dev"
-          - "2d_graphics"
-          - "game_loop_design"
-          
-      level_design:
-        name: "Level Designer"
-        tech_stack:
-          - "Level Design Theory"
-          - "Unity Editor"
-          - "Tiled"
-        skills:
-          - "level_design_principles"
-          - "player_psychology"
-          - "pacing_and_flow"
-
-  # ------------------------------------------
-  # 数据分析域 (data)
-  # ------------------------------------------
-  data:
-    display_name: "Data Science"
-    icon: "📊"
-    
-    specializations:
-      analysis:
-        name: "Data Analyst"
-        tech_stack:
-          - "Python/Pandas"
-          - "SQL"
-          - "Jupyter"
-          - "Excel"
-        file_patterns:
-          - "*.csv"
-          - "*.xlsx"
-          - "*.ipynb"
-          - "*.sql"
-        skills:
-          - "data_processing"
-          - "statistical_analysis"
-          - "sql_queries"
-          
-      visualization:
-        name: "Data Visualization"
-        tech_stack:
-          - "Matplotlib"
-          - "Seaborn"
-          - "Plotly"
-          - "D3.js"
-        file_patterns:
-          - "*.html"
-          - "*.py"
-          - "*.json"
-        skills:
-          - "chart_design"
-          - "dashboard_creation"
-          - "visual_storytelling"
-          
-      ml:
-        name: "Machine Learning"
-        tech_stack:
-          - "Scikit-learn"
-          - "TensorFlow/PyTorch"
-          - "Pandas/NumPy"
-        file_patterns:
-          - "*.py"
-          - "*.pkl"
-          - "*.h5"
-        skills:
-          - "model_training"
-          - "feature_engineering"
-          - "model_evaluation"
-
-  # ------------------------------------------
-  # 调试与DevOps域 (devops)
-  # ------------------------------------------
-  devops:
-    display_name: "DevOps & Debugging"
-    icon: "🔧"
-    
-    specializations:
-      debug:
-        name: "Debug Specialist"
-        tech_stack:
-          - "Log Analysis"
-          - "Stack Trace Reading"
-          - "Profiler Tools"
-        skills:
-          - "error_diagnosis"
-          - "root_cause_analysis"
-          - "fix_verification"
-          
-      deployment:
-        name: "Deployment Engineer"
-        tech_stack:
-          - "Docker"
-          - "Kubernetes"
-          - "CI/CD"
-          - "Cloud Platforms"
-        skills:
-          - "containerization"
-          - "pipeline_design"
-          - "infrastructure_as_code"
-
-  # ------------------------------------------
-  # 元系统域 (meta)
-  # ------------------------------------------
-  meta:
-    display_name: "Meta & System"
-    icon: "🧬"
-    
-    specializations:
-      osca_admin:
-        name: "OSCA Administrator"
-        identity_ref: "IDENTITY.md"
-        skills:
-          - "_stem-cell"
-          - "system_configuration"
-          - "seed_management"
-          
-      protocol_dev:
-        name: "Protocol Developer"
-        skills:
-          - "agent_architecture"
-          - "protocol_design"
-          - "version_management"
-
-# ============================================
-# 分化触发器配置
-# ============================================
-differentiation:
-  # 关键词到域的映射
-  triggers:
+seed_library:
+  # 种子库根目录
+  base_path: "seeds/library"
+  
+  # 已注册的种子（只记录引用，不存储完整配置）
+  seeds:
     webdev:
-      keywords:
-        - "website"
-        - "web"
-        - "frontend"
-        - "backend"
-        - "react"
-        - "vue"
-        - "html"
-        - "css"
-        - "api"
-      confidence_threshold: 0.7
+      seed_file: "webdev.seed.yaml"
+      version: "1.0.0"
+      description: "Web开发领域"
       
     gamedev:
-      keywords:
-        - "game"
-        - "unity"
-        - "pygame"
-        - "level"
-        - "mechanic"
-        - "player"
-        - "sprite"
-      confidence_threshold: 0.7
+      seed_file: "gamedev.seed.yaml"
+      version: "1.0.0"
+      description: "游戏开发领域"
       
     data:
-      keywords:
-        - "data"
-        - "csv"
-        - "analysis"
-        - "pandas"
-        - "chart"
-        - "ml"
-        - "machine learning"
-      confidence_threshold: 0.7
+      seed_file: "data.seed.yaml"
+      version: "1.0.0"
+      description: "数据分析领域"
       
     devops:
-      keywords:
-        - "debug"
-        - "deploy"
-        - "docker"
-        - "error"
-        - "bug"
-        - "fix"
-      confidence_threshold: 0.6
+      seed_file: "devops.seed.yaml"
+      version: "1.0.0"
+      description: "DevOps与调试领域"
       
     meta:
-      keywords:
-        - "osca"
-        - "meta"
-        - "protocol"
-        - "seed"
-        - "agent"
-        - "configuration"
-      confidence_threshold: 0.8
+      seed_file: "meta.seed.yaml"
+      version: "1.0.0"
+      description: "元系统领域"
+      
+    intelligent-retrieval:
+      seed_file: "intelligent-retrieval.seed.yaml"
+      version: "1.0.0"
+      description: "智能信息检索领域"
+      source: "imported"
+  
+  # 种子加载策略
+  loading:
+    # 启动时预加载的种子
+    preload: []
+    
+    # 按需加载
+    lazy_loading: true
+    
+    # 缓存策略
+    cache:
+      enabled: true
+      max_cached: 10
 
 # ============================================
-# 技能加载配置
+# 分化管理 (Differentiation Management)
 # ============================================
+differentiation:
+  
+  # 默认种子（当无法识别分化信号时使用）
+  default_seed: "meta"
+  
+  # v2.0: 分化权限控制
+  permission_control:
+    enabled: true
+    # 只有 meta 领域可以创建新领域
+    domain_creation_requires: "meta"
+    # 只有 meta 领域可以修改协议文件
+    protocol_modification_requires: "meta"
+    # 缺失领域处理策略
+    missing_domain_strategy: "redirect_to_meta"
+    
+  # 分化触发器配置
+  # 注意: 详细的触发器配置现在存储在各 Seed 文件中
+  # 这里只保留全局触发器映射
+  triggers:
+    # 触发器与种子的映射
+    # 实际的关键词和阈值在 Seed 文件中定义
+    mapping:
+      webdev: "seeds/library/webdev.seed.yaml"
+      gamedev: "seeds/library/gamedev.seed.yaml"
+      data: "seeds/library/data.seed.yaml"
+      devops: "seeds/library/devops.seed.yaml"
+      meta: "seeds/library/meta.seed.yaml"
+      intelligent-retrieval: "seeds/library/intelligent-retrieval.seed.yaml"
+    
+    # 全局置信度阈值（可被 Seed 中的配置覆盖）
+    default_confidence_threshold: 0.7
+    
+  # v2.0: 缺失领域处理消息模板
+  missing_domain_messages:
+    not_found: |
+      "{domain}" 领域不存在于种子库中。
+      
+      创建新领域需要元系统权限。
+      请使用以下指令切换到 meta 领域：
+      
+      /differentiate meta osca_admin
+      
+      在 meta 领域中，我将协助您设计和创建新领域。
+    
+    not_in_meta: |
+      ⚠️ 安全警告：您当前处于 {current_domain} 领域，
+      没有权限创建新领域。
+      
+      只有元系统领域 (meta) 可以：
+      - 创建新领域
+      - 修改协议文件
+      - 修改系统配置
+      
+      请执行：/differentiate meta osca_admin
+      然后重新提出请求。
+
+# ============================================
+# 技能系统 (Skill System)
+# ============================================
+#
+# 注意: Skill 配置现在主要由 Cell 文件管理
+# OSCA-CONFIG.yaml 只保留全局配置
+
 skills:
   base_path: "skills"
   
   # 所有智能体都加载的基础技能
   universal:
     - "_stem-cell"
-    
-  # 域特定技能映射
-  domain_skills:
-    webdev:
-      - "web_frameworks"
-      - "database_design"
-      - "api_development"
-      - "ui_components"
-    gamedev:
-      - "game_engines"
-      - "level_design"
-      - "game_mechanics"
-      - "asset_management"
-    data:
-      - "data_processing"
-      - "visualization"
-      - "statistical_analysis"
-      - "ml_basics"
+  
+  # 技能粒度定义
+  granularity:
+    fine:
+      description: "单一功能，可复用"
+      examples: ["bm25算法", "ner", "分词"]
+    medium:
+      description: "工具使用，跨领域"
+      examples: ["elasticsearch", "spacy"]
+    coarse:
+      description: "完整应用，特定场景"
+      examples: ["rag系统", "知识图谱构建"]
+
+# ============================================
+# 分化细胞配置 (Cell Configuration)
+# ============================================
+#
+# OSCA 三层架构:
+#   Seed (seeds/library/*.seed.yaml) - 定义"我是谁"
+#     ↓ 引用
+#   Cell (cells/*.cell) - Skill 清单、行动模式、思维方式
+#     ↓ 列出
+#   Skills (skills/**/*.skill) - 细粒度执行单元
+
+cells:
+  base_path: "cells"
+  
+  # 已注册的分化细胞
+  # 注意: 实际由 Seed 文件中的 cell.cell_file 定义
+  registered: {}
+  
+  # 缺失 Skill 处理规则
+  missing_skill_handling:
+    strategy: "auto_generate"
+    description: "如果 Skill 不存在，分析前场并生成对应 Skill"
 
 # ============================================
 # 安全边界配置 (细胞膜)
 # ============================================
 membrane:
-  # 文件系统权限
   filesystem:
     read:
       allowed: ["*"]
@@ -355,6 +213,8 @@ membrane:
         - "${WORKSPACE}/*"
         - "memory/*"
         - "docs/*"
+        - "seeds/*"
+        - "cells/*"
       denied:
         - "AGENTS.md"
         - "OSCA-CONFIG.yaml"
@@ -365,12 +225,10 @@ membrane:
         - "*.sh"
         - "*.py"
   
-  # 网络权限
   network:
     fetch_allowed: true
     upload_requires_confirm: true
     
-  # 高风险操作阈值
   risk_thresholds:
     file_delete_count: 10
     file_write_size_mb: 100
@@ -380,19 +238,14 @@ membrane:
 # 记忆配置
 # ============================================
 memory:
-  # 每日记忆
   daily_log_path: "memory/${YYYY-MM-DD}.md"
-  
-  # 长期记忆
   long_term: "MEMORY.md"
   
-  # 困惑库
   confusion_lib:
     path: "memory/confusion/"
     max_entries: 100
     archive_after_days: 30
     
-  # 自动归档
   auto_archive:
     enabled: true
     check_interval_days: 7
@@ -411,14 +264,42 @@ heartbeat:
     - "report_status"
 
 # ============================================
-# 种子管理
+# 种子管理 (Seed Management)
 # ============================================
 seed_management:
+  # 种子库目录
+  library_path: "seeds/library"
+  
+  # 导出/导入目录
   export_path: "seeds/exported"
   import_path: "seeds/imported"
   template_path: "seeds/templates"
   
+  # 验证配置
   validation:
     check_required_fields: true
     verify_skill_existence: true
     check_version_compatibility: true
+  
+  # 种子注册
+  registration:
+    auto_register_imported: true
+    require_validation: true
+
+# ============================================
+# 使用说明
+# ============================================
+#
+# 添加新领域:
+#   1. 在 seeds/library/ 创建 {domain}.seed.yaml
+#   2. 在 OSCA-CONFIG.yaml 的 seed_library.seeds 中添加引用
+#   3. 在 differentiation.triggers.mapping 中添加映射
+#
+# 分化到某个领域:
+#   /differentiate {domain-name}
+#   系统会从 seeds/library/ 加载对应的种子文件
+#
+# 查看可用种子:
+#   查看 seed_library.seeds 列表
+#
+# ============================================

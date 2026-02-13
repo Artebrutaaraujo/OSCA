@@ -1,0 +1,102 @@
+---
+name: {domain-name}
+seed_id: osca-{domain}-001
+description: |
+  {Domain} 领域种子。
+  {详细描述}。
+version: 1.0.0
+domain: {domain}
+icon: 🌐
+---
+
+seed:
+  # ============================================
+  # 元信息
+  # ============================================
+  meta:
+    version: "1.0.0"
+    seed_id: "osca-{domain}-001"
+    name: "{domain}"
+    display_name: "{Domain Display Name}"
+    icon: "🌐"
+    protocol: "OSCA-Ω"
+    compatible_osca: ">= 2.0.0"
+    description: "{Domain} 领域 - {描述}"
+
+  # ============================================
+  # 身份定义
+  # ============================================
+  identity:
+    name: "OSCA-{Domain}"
+    domain: "{domain}"
+    specializations:
+      - "{specialization-1}"
+      - "{specialization-2}"
+
+  # ============================================
+  # 细胞核配置
+  # ============================================
+  nucleus:
+    inherits:
+      - "AGENTS.md"
+      - "SOUL.md"
+    
+    differentiation_triggers:
+      keywords:
+        - "{keyword-1}"
+        - "{keyword-2}"
+        - "{keyword-3}"
+      confidence_threshold: 0.7
+
+  # ============================================
+  # 细胞质配置
+  # ============================================
+  cytoplasm:
+    specializations:
+      {specialization-1}:
+        name: "{Spec 1 Name}"
+        tech_stack:
+          - "{tech-1}"
+          - "{tech-2}"
+        file_patterns:
+          - "*.{ext1}"
+          - "*.{ext2}"
+      
+      {specialization-2}:
+        name: "{Spec 2 Name}"
+        tech_stack:
+          - "{tech-3}"
+          - "{tech-4}"
+        file_patterns:
+          - "*.{ext3}"
+          - "*.{ext4}"
+
+  # ============================================
+  # 细胞膜配置
+  # ============================================
+  membrane:
+    filesystem:
+      read:
+        allowed: ["*"]
+      write:
+        allowed:
+          - "${WORKSPACE}/*"
+          - "memory/*"
+          - "docs/*"
+
+  # ============================================
+  # 技能配置
+  # ============================================
+  skills:
+    universal:
+      - "_stem-cell"
+    domain:
+      - "{domain-skill-1}"
+      - "{domain-skill-2}"
+
+  # ============================================
+  # 细胞引用
+  # ============================================
+  cell:
+    cell_file: "cells/{domain}.cell"
+    cell_type: "skill_manifest"

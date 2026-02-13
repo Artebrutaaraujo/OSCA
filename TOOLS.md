@@ -1,6 +1,6 @@
 # TOOLS.md - OSCA 工具配置索引
 
-> **细胞膜层** | 环境特定的工具链映射 | 安全边界定义
+> **细胞膜层** | 环境特定的工具链映射 | 安全边界定义 | 版本: 2.0
 
 ---
 
@@ -13,12 +13,22 @@
 - 工具链组合快捷方式
 - 安全边界与权限
 
-### 1.2 与 Skills 的区别
+### 1.2 v2.0 架构中的位置
+```
+Seed (seeds/library/*.seed.yaml)
+    ↓ 引用
+Cell (cells/*.cell)
+    ↓ 使用
+Skills (skills/**/*.skill) ──→ 调用 ──→ TOOLS.md 定义的工具
+```
+
+### 1.3 与 Skills 的区别
 | | TOOLS.md | Skills |
 |--|----------|--------|
 | **层级** | 细胞膜（边界） | 分化质（能力） |
 | **内容** | 工具配置、别名、权限 | 工具使用方式、最佳实践 |
-| **更新频率** | 随环境变化 | 随领域进化 |
+| **v2.0 关系** | 提供执行工具 | 通过 Cell 组织，按需加载 |
+| **更新频率** | 随环境变化 | 随领域进化，可自动生成 |
 
 ---
 
@@ -127,6 +137,8 @@ environment:
     osca_root: "E:\\OSCA"
     scripts: "E:\\OSCA\\scripts"
     skills: "E:\\OSCA\\skills"
+    seeds: "E:\\OSCA\\seeds"           # v2.0: 种子库
+    cells: "E:\\OSCA\\cells"           # v2.0: 细胞层
     memory: "E:\\OSCA\\memory"
     docs: "E:\\OSCA\\docs"
 ```
@@ -155,22 +167,33 @@ editor_integration:
 
 ## 四、快捷命令别名
 
-### 4.1 OSCA 专用别名
+### 4.1 OSCA 专用别名 (v2.0)
 ```bash
-# 种子管理
-osca-export    → scripts/export-seed.bat
-osca-import    → scripts/import-seed.bat
-osca-seed      → _stem-cell create-seed
+# 种子库管理 (v2.0)
+osca-seeds       → python scripts/seed_manager.py list
+osca-seed-export → python scripts/seed_manager.py export
+osca-seed-import → python scripts/seed_manager.py import
+osca-seed-add    → python scripts/seed_manager.py add
+osca-seed-rm     → python scripts/seed_manager.py remove
+osca-seed-info   → python scripts/seed_manager.py info
+
+# 细胞管理 (v2.0)
+osca-cells       → ls cells/
+osca-cell-show   → cat cells/{name}.cell
+
+# Skill 管理 (v2.0)
+osca-skills      → python scripts/skill_manager.py list
+osca-skill-gen   → python scripts/skill_manager.py generate  # 自动生成缺失Skill
 
 # 分化控制
-osca-diff      → /differentiate
-osca-dediff    → /dedifferentiate
-osca-status    → /status
+osca-diff        → /differentiate
+osca-dediff      → /dedifferentiate
+osca-status      → /status
 
 # 维护
-osca-heartbeat → heartbeat
-osca-clean     → heartbeat --emergency-cleanup
-osca-verify    → verify-skill-integrity
+osca-heartbeat   → heartbeat
+osca-clean       → heartbeat --emergency-cleanup
+osca-verify      → verify-skill-integrity
 ```
 
 ### 4.2 常用开发别名
@@ -190,6 +213,8 @@ gpl            → git pull
 home           → cd %OSCA_ROOT%
 scripts        → cd %OSCA_ROOT%/scripts
 skills         → cd %OSCA_ROOT%/skills
+seeds          → cd %OSCA_ROOT%/seeds      # v2.0: 种子库
+cells          → cd %OSCA_ROOT%/cells      # v2.0: 细胞层
 memory         → cd %OSCA_ROOT%/memory
 ```
 
@@ -385,12 +410,17 @@ import-tools-config <template-file>
 
 ```yaml
 tools_config:
-  version: "1.0.0"
-  compatible_osca: ">= 1.0.0"
-  last_updated: "2026-02-12"
+  version: "2.0.0"
+  compatible_osca: ">= 2.0.0"
+  last_updated: "2026-02-14"
   environment: "OpenClaw-Windows"
+  architecture: "Seed/Cell/Skills"
+  features:
+    - "种子库管理"
+    - "细胞层访问"
+    - "细粒度 Skill 生成"
 ```
 
 ---
 
-> *"细胞膜控制物质交换，TOOLS.md 控制能力边界。知道能用什么，更知道不能用什么。"*
+> *"细胞膜控制物质交换，TOOLS.md 控制能力边界。知道能用什么，更知道不能用什么。在 v2.0 中，我还可以帮助生成缺失的 Skills。"*

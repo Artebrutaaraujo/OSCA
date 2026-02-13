@@ -1,6 +1,6 @@
 # HEARTBEAT.md - OSCA 代谢与维护协议
 
-> **自动化维护系统** | 每30分钟执行一次代谢检查
+> **自动化维护系统** | 每30分钟执行一次代谢检查 | 版本: 2.0
 
 ---
 
@@ -12,6 +12,7 @@
 - **修复损伤**: 验证技能完整性、检查配置一致性
 - **监控状态**: 记录系统健康指标
 - **预防维护**: 在问题发生前处理潜在风险
+- **v2.0 新增**: 种子库健康检查、Cell 完整性验证、Skills 自动生成监控
 
 ### 1.2 触发条件
 ```yaml
@@ -23,6 +24,7 @@ triggers:
     - "任务完成后"
     - "身份切换后"
     - "检测到异常后"
+    - "v2.0: Seed/Cell/Skill 变更后"
     
   manual:
     command: "/heartbeat"
@@ -72,27 +74,89 @@ criteria:
   extract_keywords: ["重要", "记住", "教训", "偏好"]
 ```
 
-### 2.3 技能完整性检查 (Skill Integrity Check)
+### 2.3 技能完整性检查 (Skill Integrity Check) - v2.0 更新
 ```yaml
 task: verify_skill_integrity
 priority: P1
-description: 验证所有技能文件完整
+description: 验证所有技能文件完整（包括细粒度 Skills）
 
 steps:
-  1. 扫描 skills/ 目录结构
-  2. 检查每个 SKILL.md 是否存在
-  3. 验证 YAML/JSON 配置语法
-  4. 检查依赖关系
-  5. 报告缺失或损坏的文件
+  1. 扫描 skills/ 目录结构（包括所有 .skill 文件）
+  2. 检查每个 .skill 文件是否存在
+  3. 验证 YAML 配置语法
+  4. 检查 Cell 中引用的 Skills 是否都已加载
+  5. 检查 Skill 依赖关系
+  6. v2.0: 检查是否有需要自动生成的 Skills
+  7. 报告缺失或损坏的文件
 
 checks:
   - file_exists: true
   - valid_syntax: true
-  - required_sections: ["概述", "接口", "使用"]
+  - required_sections: ["功能概述", "使用方法"]
   - dependencies_resolved: true
+  - v2.0_cell_references: validated  # 验证 Cell 引用的 Skills 存在
+  - v2.0_auto_generate_candidates: listed  # 列出可自动生成的 Skills
 ```
 
-### 2.4 状态报告 (Status Report)
+### 2.3a 种子库健康检查 (v2.0 新增)
+```yaml
+task: check_seed_library_health
+priority: P1
+description: 检查种子库完整性和一致性
+
+steps:
+  1. 扫描 seeds/library/ 目录
+  2. 验证每个种子文件的 YAML 语法
+  3. 检查种子元信息完整性
+  4. 验证引用的 Cell 文件存在
+  5. 检查 OSCA-CONFIG.yaml 中的种子注册
+  6. 报告孤儿种子（未注册的种子）
+  7. 报告缺失的 Cell 文件
+
+checks:
+  - seed_yaml_valid: true
+  - seed_registered: true
+  - cell_file_exists: true
+  - trigger_keywords_unique: true  # 检查触发器关键词不冲突
+
+output:
+  total_seeds: number
+  valid_seeds: number
+  invalid_seeds: list
+  orphan_seeds: list  # 未注册的种子
+  missing_cells: list  # 缺失的 Cell 文件
+```
+
+### 2.3b Cell 完整性验证 (v2.0 新增)
+```yaml
+task: verify_cell_integrity
+priority: P1
+description: 验证 Cell 文件完整性和有效性
+
+steps:
+  1. 扫描 cells/ 目录
+  2. 验证每个 .cell 文件的 YAML 语法
+  3. 检查 Cell 元信息完整性
+  4. 验证引用的 Seed 文件存在
+  5. 验证 Skill 清单格式正确
+  6. 检查行动模式和思维方式定义
+  7. 验证缺失 Skill 处理规则
+
+checks:
+  - cell_yaml_valid: true
+  - parent_seed_exists: true
+  - skill_manifest_valid: true
+  - action_patterns_defined: true
+  - thinking_patterns_defined: true
+  - missing_skill_handling_defined: true
+
+output:
+  total_cells: number
+  valid_cells: number
+  cells_with_auto_gen_rules: number
+```
+
+### 2.4 状态报告 (Status Report) - v2.0 更新
 ```yaml
 task: report_status
 priority: P3
@@ -100,9 +164,19 @@ description: 生成系统状态摘要
 
 report_content:
   - 当前身份状态
+    - 当前 Seed: {seed-id}
+    - 当前 Cell: {cell-id}
+    - 已加载 Skills: {skill-count}
   - 今日任务统计
   - 资源使用情况
   - 待处理的困惑
+  - v2.0: 种子库状态
+    - 注册种子数: {seed-count}
+    - 可用 Cells: {cell-count}
+    - 细粒度 Skills: {skill-count}
+  - v2.0: 自动生成候选
+    - 缺失 Skills: {missing-skills}
+    - 建议生成: {suggested-generation}
   - 建议的维护操作
 
 output_format: markdown
@@ -184,8 +258,17 @@ heartbeat --task confusion
 # 仅归档记忆
 heartbeat --task archive
 
-# 仅验证技能
+# 仅验证技能（v2.0: 包括细粒度 Skills）
 heartbeat --task verify
+
+# v2.0: 仅检查种子库
+heartbeat --task seeds
+
+# v2.0: 仅验证 Cells
+heartbeat --task cells
+
+# v2.0: 检查并建议自动生成 Skills
+heartbeat --task skill-gen --list-missing
 
 # 详细输出
 heartbeat --verbose
@@ -215,7 +298,7 @@ report = hb.generate_report()
 
 ## 五、配置项
 
-### 5.1 心跳配置
+### 5.1 心跳配置 (v2.0 更新)
 ```yaml
 # OSCA-CONFIG.yaml 中的 heartbeat 部分
 heartbeat:
@@ -235,16 +318,39 @@ heartbeat:
     verify_skill_integrity:
       enabled: true
       check_dependencies: true
+      v2.0_check_cell_references: true  # 验证 Cell 引用的 Skills
+      v2.0_list_auto_gen_candidates: true  # 列出可自动生成的 Skills
+    
+    # v2.0: 种子库健康检查
+    check_seed_library_health:
+      enabled: true
+      priority: "high"
+      check_orphan_seeds: true
+      check_trigger_conflicts: true
+    
+    # v2.0: Cell 完整性验证
+    verify_cell_integrity:
+      enabled: true
+      priority: "high"
+      validate_skill_manifest: true
+      validate_action_patterns: true
+      validate_thinking_patterns: true
       
     report_status:
       enabled: true
       output_format: "markdown"
+      v2.0_include_seed_status: true
+      v2.0_include_cell_status: true
+      v2.0_include_skill_gen_candidates: true
   
   # 通知设置
   notifications:
     on_error: true
     on_warning: true
     on_archive: false
+    v2.0_on_seed_issue: true
+    v2.0_on_cell_issue: true
+    v2.0_on_skill_gen_suggestion: true
 ```
 
 ### 5.2 困惑库配置

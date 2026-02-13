@@ -1,0 +1,231 @@
+# OSCA Cell Template
+# 
+# 使用方式:
+#   1. 复制此文件为 {domain-name}.cell
+#   2. 修改 parent_seed 为你的 Seed 名称
+#   3. 定义所需的 Skills
+#   4. 放入 cells/ 目录
+
+cell:
+  # ============================================
+  # 元信息
+  # ============================================
+  meta:
+    format_version: "1.1.0"
+    cell_type: "skill_manifest"
+    cell_id: "cell-{domain}-001"
+    name: "{domain-name}"
+    
+    # 关联的 Seed
+    parent_seed: "{domain-name}"
+    seed_file: "seeds/exported/{domain-name}.seed.yaml"
+
+  # ============================================
+  # 行动模式 (Action Patterns)
+  # ============================================
+  # 记录该分化角色的典型行为模式和工作方式
+  
+  action_patterns:
+    
+    default_mode: "standard"
+    
+    modes:
+      standard:
+        name: "标准模式"
+        description: "默认工作模式"
+        behaviors:
+          - "行为1"
+          - "行为2"
+        trigger: "触发条件"
+    
+    task_processing:
+      - phase: "接收任务"
+        actions:
+          - "动作1"
+          - "动作2"
+
+  # ============================================
+  # 思维方式 (Thinking Patterns)
+  # ============================================
+  # 记录该分化角色的认知模式和思维习惯
+  
+  thinking_patterns:
+    
+    core_patterns:
+      pattern_name:
+        name: "模式名称"
+        description: "模式描述"
+        applications:
+          - "应用场景1"
+          - "应用场景2"
+    
+    problem_analysis:
+      diagnostic_questions:
+        - question: "诊断问题1"
+          purpose: "目的"
+      
+      thinking_steps:
+        - step: 1
+          name: "步骤名称"
+          thought: "思考内容"
+    
+    decision_framework:
+      criteria:
+        - name: "标准名称"
+          weight: 0.5
+          description: "描述"
+
+  # ============================================
+  # 行为准则 (Behavior Guidelines)
+  # ============================================
+  
+  behavior_guidelines:
+    do:
+      - "应该做的事1"
+      - "应该做的事2"
+    dont:
+      - "不应该做的事1"
+      - "不应该做的事2"
+
+  # ============================================
+  # 缺失 Skill 处理规则 (Missing Skill Handling)
+  # ============================================
+  # 当 Skill 清单中的 Skill 在工作区不存在时的处理策略
+  
+  missing_skill_handling:
+    
+    # 处理策略: auto_generate = 自动生成
+    strategy: "auto_generate"
+    
+    # 策略说明
+    strategy_description: |
+      如果 Skill 清单中的 Skill 在工作区中不存在，
+      分化细胞需要自行分析前场情况，设计并生成对应的 Skill 文件。
+    
+    # 生成流程
+    generation_workflow:
+      
+      - step: 1
+        name: "分析前场情况"
+        description: "分析当前工作区的技术栈、项目结构、已有实现"
+        actions:
+          - "检查工作区目录结构"
+          - "识别已有的相关代码/配置"
+          - "分析项目使用的技术栈"
+          - "了解团队的编码规范"
+      
+      - step: 2
+        name: "设计 Skill 内容"
+        description: "基于前场分析，设计 Skill 的具体内容"
+        actions:
+          - "定义 Skill 的核心功能"
+          - "设计 Skill 的输入输出"
+          - "确定 Skill 的粒度级别"
+      
+      - step: 3
+        name: "生成 Skill 文件"
+        description: "按照模板生成 .skill 文件"
+        output_path: "skills/{category}/{skill-id}.skill"
+      
+      - step: 4
+        name: "验证和注册"
+        description: "验证生成的 Skill 并注册到系统"
+      
+      - step: 5
+        name: "通知用户"
+        description: "向用户报告生成的 Skill"
+    
+    # 生成约束
+    constraints:
+      - "生成的 Skill 必须符合 .skill 文件格式规范"
+      - "Skill 的粒度应与清单中定义的一致"
+      - "必须基于前场实际情况，不能凭空想象"
+
+  # ============================================
+  # Skill 清单
+  # ============================================
+  skill_manifest:
+    
+    # 基础 Skills (所有专精都需要)
+    foundational:
+      - id: "{domain}-foundation"
+        name: "{Domain} 基础"
+        file: "skills/{domain}/foundation.skill"
+        granularity: "coarse"
+        required: true
+    
+    # 专精特定 Skills
+    specializations:
+      
+      specialization-1:
+        name: "专精1"
+        description: "专精1的描述"
+        skills:
+          - id: "{domain}-skill-1"
+            name: "Skill 1"
+            file: "skills/{domain}/skill-1.skill"
+            granularity: "fine"
+            required: true
+      
+      specialization-2:
+        name: "专精2"
+        description: "专精2的描述"
+        skills:
+          - id: "{domain}-skill-2"
+            name: "Skill 2"
+            file: "skills/{domain}/skill-2.skill"
+            granularity: "fine"
+            required: true
+    
+    # 跨领域复用的工具 Skills
+    tools:
+      - id: "tool-example"
+        name: "Example Tool"
+        file: "skills/tools/example.skill"
+        granularity: "medium"
+        required: false
+
+  # ============================================
+  # Skill 依赖关系
+  # ============================================
+  dependencies:
+    "{domain}-skill-2":
+      requires: ["{domain}-skill-1"]
+
+  # ============================================
+  # Skill 组合模板
+  # ============================================
+  templates:
+    
+    minimal:
+      name: "最小化配置"
+      description: "仅加载核心必需 Skills"
+      skills:
+        foundational:
+          - "{domain}-foundation"
+    
+    full:
+      name: "完整配置"
+      description: "加载所有 Skills"
+      skills:
+        foundational: "*"
+        specializations:
+          specialization-1: "*"
+          specialization-2: "*"
+        tools: "*"
+
+  # ============================================
+  # 分化指令映射
+  # ============================================
+  differentiation_mapping:
+    default:
+      template: "minimal"
+    
+    specializations:
+      specialization-1:
+        template: "minimal"
+        additional_skills: [...]
+      
+      specialization-2:
+        template: "minimal"
+        additional_skills: [...]

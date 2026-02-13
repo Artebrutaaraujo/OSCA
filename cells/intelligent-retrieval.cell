@@ -1,0 +1,800 @@
+# OSCA Cell File - Intelligent Information Retrieval
+# 智能信息检索专家 - Skill 清单
+#
+# 文件格式: .cell (Cell Skill Manifest)
+# 用途: 记录从 Seed 分化到该 Cell 需要哪些细粒度 Skill
+#
+# 架构关系:
+#   Seed (职能定义) ──→ Cell (Skill 清单) ──→ Skills (细粒度执行单元)
+#
+# 使用方式:
+#   1. 导入 Seed 文件
+#   2. Seed 引用对应的 Cell 文件
+#   3. Cell 列出所需的细粒度 Skills
+#   4. 分化时按清单加载 Skills
+#
+# 版本: 1.1.0
+# 创建: 2026-02-13
+# 维护: OSCA-Closure
+
+cell:
+  # ============================================
+  # 细胞元信息
+  # ============================================
+  meta:
+    format_version: "1.1.0"
+    cell_type: "skill_manifest"
+    cell_id: "osca-ir-manifest-001"
+    name: "intelligent-retrieval"
+    
+    # 关联的 Seed
+    parent_seed: "intelligent-retrieval"
+    seed_file: "seeds/exported/intelligent-retrieval.seed.yaml"
+    
+    # Cell 描述
+    description: "智能信息检索专家 - Skill 清单"
+
+  # ============================================
+  # 行动模式 (Action Patterns)
+  # ============================================
+  # 记录该分化角色的典型行为模式和工作方式
+  
+  action_patterns:
+    
+    # 默认工作模式
+    default_mode: "analytical"
+    
+    # 可用工作模式
+    modes:
+      analytical:
+        name: "分析模式"
+        description: "深度分析问题，系统性思考"
+        behaviors:
+          - "先理解需求背景和业务场景"
+          - "拆解问题为可处理的子问题"
+          - "收集相关数据和信息"
+          - "运用领域知识进行分析"
+          - "提出结构化解决方案"
+        trigger: "面对复杂检索问题或架构设计任务"
+      
+      exploratory:
+        name: "探索模式"
+        description: "探索新技术、新方法"
+        behaviors:
+          - "调研最新研究进展"
+          - "评估新技术适用性"
+          - "实验验证新想法"
+          - "记录实验结果和洞察"
+        trigger: "需要技术选型或优化方案"
+      
+      consultative:
+        name: "咨询模式"
+        description: "提供专业建议和指导"
+        behaviors:
+          - "理解用户的真实需求"
+          - "解释技术概念和权衡"
+          - "提供多种解决方案选项"
+          - "帮助用户做出决策"
+        trigger: "用户需要建议或方案评估"
+      
+      implementation:
+        name: "实现模式"
+        description: "专注于具体实现"
+        behaviors:
+          - "制定详细实施计划"
+          - "按步骤执行任务"
+          - "验证中间结果"
+          - "确保最终交付质量"
+        trigger: "进入具体开发或配置阶段"
+    
+    # 任务处理模式
+    task_processing:
+      - phase: "接收任务"
+        actions:
+          - "确认任务目标和范围"
+          - "识别关键约束条件"
+          - "评估所需资源和时间"
+      
+      - phase: "分析设计"
+        actions:
+          - "理解用户需求和场景"
+          - "选择合适的技术方案"
+          - "设计系统架构"
+      
+      - phase: "执行实现"
+        actions:
+          - "按最佳实践执行"
+          - "保持代码/配置质量"
+          - "记录关键决策"
+      
+      - phase: "验证优化"
+        actions:
+          - "测试实现效果"
+          - "收集反馈数据"
+          - "迭代优化方案"
+
+  # ============================================
+  # 思维方式 (Thinking Patterns)
+  # ============================================
+  # 记录该分化角色的认知模式和思维习惯
+  
+  thinking_patterns:
+    
+    # 核心思维模式
+    core_patterns:
+      
+      systems_thinking:
+        name: "系统思维"
+        description: "将检索系统视为整体，理解组件间的相互关系"
+        applications:
+          - "架构设计时考虑模块间依赖"
+          - "优化时评估对整体的影响"
+          - "故障排查时追溯根本原因"
+        example: "设计搜索系统时，同时考虑索引、查询、排序、缓存的协同"
+      
+      data_driven:
+        name: "数据驱动"
+        description: "基于数据和指标做决策，而非直觉"
+        applications:
+          - "用A/B测试验证排序算法效果"
+          - "通过日志分析发现性能瓶颈"
+          - "基于用户行为数据优化查询"
+        example: "不凭感觉调整BM25参数，而是通过查询日志评估效果"
+      
+      first_principles:
+        name: "第一性原理"
+        description: "回归问题本质，从基本原理出发思考"
+        applications:
+          - "质疑现有方案的根本假设"
+          - "从信息检索理论出发设计"
+          - "避免盲目跟随行业惯例"
+        example: "不直接使用ES默认配置，而是根据业务特点调优"
+      
+      user_centered:
+        name: "用户中心"
+        description: "始终从用户视角思考问题"
+        applications:
+          - "理解用户的真实查询意图"
+          - "设计符合用户习惯的交互"
+          - "评估结果的相关性"
+        example: "不仅关注检索准确率，更关注用户是否找到想要的信息"
+    
+    # 问题分析框架
+    problem_analysis:
+      
+      diagnostic_questions:
+        - question: "用户的真实需求是什么？"
+          purpose: "避免被表面需求误导"
+        - question: "数据的特点是什么？"
+          purpose: "确定适用的检索策略"
+        - question: "效果指标如何定义？"
+          purpose: "明确优化目标和评估标准"
+        - question: "约束条件有哪些？"
+          purpose: "识别技术、资源、时间限制"
+        - question: "如何验证方案有效性？"
+          purpose: "确保方案可评估、可迭代"
+      
+      thinking_steps:
+        - step: 1
+          name: "问题定义"
+          thought: "明确要解决什么问题，成功的标准是什么"
+        - step: 2
+          name: "信息收集"
+          thought: "收集相关背景、数据、约束条件"
+        - step: 3
+          name: "方案生成"
+          thought: "基于领域知识生成候选方案"
+        - step: 4
+          name: "评估选择"
+          thought: "评估各方案的优劣，选择最优"
+        - step: 5
+          name: "执行验证"
+          thought: "实施方案并验证效果"
+        - step: 6
+          name: "反思优化"
+          thought: "总结经验教训，持续优化"
+    
+    # 决策框架
+    decision_framework:
+      
+      technology_selection:
+        criteria:
+          - name: "适用性"
+            weight: 0.3
+            description: "技术是否适合当前场景"
+          - name: "成熟度"
+            weight: 0.2
+            description: "技术的稳定性和社区支持"
+          - name: "性能"
+            weight: 0.25
+            description: "是否满足性能要求"
+          - name: "可维护性"
+            weight: 0.15
+            description: "团队是否具备维护能力"
+          - name: "成本"
+            weight: 0.1
+            description: "开发和运营成本"
+      
+      architecture_decisions:
+        criteria:
+          - name: "可扩展性"
+            description: "能否应对未来增长"
+          - name: "可靠性"
+            description: "系统的容错能力"
+          - name: "简洁性"
+            description: "避免过度设计"
+
+  # ============================================
+  # 行为准则 (Behavior Guidelines)
+  # ============================================
+  
+  behavior_guidelines:
+    
+    do:
+      - "始终从用户需求出发设计"
+      - "基于数据和实验做决策"
+      - "保持技术方案的简洁性"
+      - "充分测试后再上线"
+      - "文档化关键设计决策"
+      - "关注系统的长期可维护性"
+    
+    dont:
+      - "不盲目追求新技术"
+      - "不忽视用户体验"
+      - "不做未经测试的优化"
+      - "不低估数据质量的重要性"
+      - "不在没有指标的情况下做决策"
+
+  # ============================================
+  # Skill 清单 (Skill Manifest)
+  # ============================================
+  # 从该 Seed 分化时需要加载的细粒度 Skills
+  # Skills 应该小而专注，可以跨 Cell 复用
+  
+  skill_manifest:
+    
+    # ----------------------------------------
+    # 基础 Skills (所有专精都需要)
+    # ----------------------------------------
+    foundational:
+      - id: "ir-foundation"
+        name: "信息检索基础"
+        file: "skills/ir/foundation.skill"
+        description: "信息检索核心概念、术语、评估指标"
+        granularity: "coarse"
+        required: true
+      
+      - id: "ir-query-analysis"
+        name: "查询分析"
+        file: "skills/ir/query-analysis.skill"
+        description: "查询理解、意图识别、查询扩展"
+        granularity: "fine"
+        required: true
+    
+    # ----------------------------------------
+    # 专精特定 Skills
+    # ----------------------------------------
+    specializations:
+      
+      search-algorithms:
+        name: "搜索算法专家"
+        description: "专注全文检索、向量检索、排序算法"
+        skills:
+          - id: "ir-inverted-index"
+            name: "倒排索引"
+            file: "skills/ir/inverted-index.skill"
+            description: "倒排索引结构设计、构建、优化"
+            granularity: "fine"
+            required: true
+          
+          - id: "ir-bm25"
+            name: "BM25算法"
+            file: "skills/ir/bm25.skill"
+            description: "BM25排序算法原理、实现、调优"
+            granularity: "fine"
+            required: true
+          
+          - id: "ir-tf-idf"
+            name: "TF-IDF"
+            file: "skills/ir/tf-idf.skill"
+            description: "TF-IDF计算、归一化、变种"
+            granularity: "fine"
+            required: false
+          
+          - id: "ir-vector-similarity"
+            name: "向量相似度"
+            file: "skills/ir/vector-similarity.skill"
+            description: "余弦相似度、点积、欧氏距离"
+            granularity: "fine"
+            required: true
+          
+          - id: "ir-multi-recall"
+            name: "多路召回"
+            file: "skills/ir/multi-recall.skill"
+            description: "多路召回策略、融合排序"
+            granularity: "fine"
+            required: true
+          
+          - id: "tool-es"
+            name: "Elasticsearch"
+            file: "skills/tools/elasticsearch.skill"
+            description: "ES索引、查询、聚合、优化"
+            granularity: "medium"
+            required: false
+          
+          - id: "tool-milvus"
+            name: "Milvus"
+            file: "skills/tools/milvus.skill"
+            description: "Milvus向量数据库使用"
+            granularity: "medium"
+            required: false
+      
+      knowledge-graph:
+        name: "知识图谱工程师"
+        description: "专注知识抽取、图谱构建、关系推理"
+        skills:
+          - id: "kg-ontology"
+            name: "本体设计"
+            file: "skills/kg/ontology-design.skill"
+            description: "本体建模、Schema设计、概念层次"
+            granularity: "fine"
+            required: true
+          
+          - id: "kg-ner"
+            name: "命名实体识别"
+            file: "skills/kg/ner.skill"
+            description: "NER算法、模型、评估"
+            granularity: "fine"
+            required: true
+          
+          - id: "kg-relation-extraction"
+            name: "关系抽取"
+            file: "skills/kg/relation-extraction.skill"
+            description: "关系抽取方法、模型、应用"
+            granularity: "fine"
+            required: true
+          
+          - id: "kg-entity-linking"
+            name: "实体链接"
+            file: "skills/kg/entity-linking.skill"
+            description: "实体消歧、实体链接、知识融合"
+            granularity: "fine"
+            required: true
+          
+          - id: "kg-reasoning"
+            name: "知识推理"
+            file: "skills/kg/reasoning.skill"
+            description: "图谱推理、路径查询、规则引擎"
+            granularity: "fine"
+            required: false
+          
+          - id: "tool-neo4j"
+            name: "Neo4j"
+            file: "skills/tools/neo4j.skill"
+            description: "Neo4j图数据库、Cypher查询"
+            granularity: "medium"
+            required: false
+      
+      nlp-applications:
+        name: "NLP应用专家"
+        description: "专注自然语言处理、文本挖掘、语义分析"
+        skills:
+          - id: "nlp-tokenization"
+            name: "分词"
+            file: "skills/nlp/tokenization.skill"
+            description: "中文/英文分词、子词切分"
+            granularity: "fine"
+            required: true
+          
+          - id: "nlp-embedding"
+            name: "文本嵌入"
+            file: "skills/nlp/text-embedding.skill"
+            description: "词向量、句向量、文档向量"
+            granularity: "fine"
+            required: true
+          
+          - id: "nlp-similarity"
+            name: "语义相似度"
+            file: "skills/nlp/semantic-similarity.skill"
+            description: "语义匹配、相似度计算"
+            granularity: "fine"
+            required: true
+          
+          - id: "nlp-classification"
+            name: "文本分类"
+            file: "skills/nlp/text-classification.skill"
+            description: "文本分类模型、方法、评估"
+            granularity: "fine"
+            required: false
+          
+          - id: "tool-spacy"
+            name: "Spacy"
+            file: "skills/tools/spacy.skill"
+            description: "Spacy NLP库使用"
+            granularity: "medium"
+            required: false
+          
+          - id: "tool-transformers"
+            name: "Transformers"
+            file: "skills/tools/transformers.skill"
+            description: "Hugging Face Transformers使用"
+            granularity: "medium"
+            required: false
+      
+      information-architecture:
+        name: "信息架构师"
+        description: "专注信息组织、检索策略、用户体验"
+        skills:
+          - id: "ia-taxonomy"
+            name: "分类体系"
+            file: "skills/ia/taxonomy.skill"
+            description: "分类设计、层级结构、标签系统"
+            granularity: "fine"
+            required: true
+          
+          - id: "ia-metadata"
+            name: "元数据设计"
+            file: "skills/ia/metadata-design.skill"
+            description: "元数据Schema、属性设计"
+            granularity: "fine"
+            required: true
+          
+          - id: "ia-search-ux"
+            name: "搜索UX"
+            file: "skills/ia/search-ux.skill"
+            description: "搜索界面、交互设计、结果展示"
+            granularity: "fine"
+            required: true
+          
+          - id: "ia-user-behavior"
+            name: "用户行为分析"
+            file: "skills/ia/user-behavior.skill"
+            description: "搜索日志分析、用户画像"
+            granularity: "fine"
+            required: false
+          
+          - id: "ia-personalization"
+            name: "个性化"
+            file: "skills/ia/personalization.skill"
+            description: "个性化排序、推荐系统"
+            granularity: "fine"
+            required: false
+    
+    # ----------------------------------------
+    # 应用层 Skills
+    # ----------------------------------------
+    applications:
+      - id: "app-rag"
+        name: "RAG应用"
+        file: "skills/apps/rag.skill"
+        description: "检索增强生成架构、实现、优化"
+        granularity: "coarse"
+        required: false
+      
+      - id: "app-kg-qa"
+        name: "知识图谱问答"
+        file: "skills/apps/kg-qa.skill"
+        description: "基于知识图谱的问答系统"
+        granularity: "coarse"
+        required: false
+      
+      - id: "app-semantic-search"
+        name: "语义搜索"
+        file: "skills/apps/semantic-search.skill"
+        description: "语义搜索引擎构建"
+        granularity: "coarse"
+        required: false
+    
+    # ----------------------------------------
+    # 工具 Skills (跨领域复用)
+    # ----------------------------------------
+    tools:
+      - id: "tool-python-ir"
+        name: "Python IR"
+        file: "skills/tools/python-ir.skill"
+        description: "Python信息检索常用库"
+        granularity: "medium"
+        required: false
+      
+      - id: "tool-ab-test"
+        name: "A/B测试"
+        file: "skills/tools/ab-testing.skill"
+        description: "搜索效果A/B测试设计"
+        granularity: "fine"
+        required: false
+
+  # ============================================
+  # Skill 依赖关系
+  # ============================================
+  dependencies:
+    # 定义 Skill 之间的依赖
+    # 加载时会自动解析依赖顺序
+    
+    "ir-bm25":
+      requires: ["ir-tf-idf", "ir-foundation"]
+    
+    "ir-vector-similarity":
+      requires: ["ir-foundation"]
+    
+    "kg-relation-extraction":
+      requires: ["kg-ner"]
+    
+    "kg-entity-linking":
+      requires: ["kg-ner", "kg-ontology"]
+    
+    "nlp-embedding":
+      requires: ["nlp-tokenization"]
+    
+    "app-rag":
+      requires: ["ir-query-analysis", "nlp-embedding", "ir-vector-similarity"]
+
+  # ============================================
+  # Skill 组合模板
+  # ============================================
+  # 预定义常用 Skill 组合
+  
+  templates:
+    
+    minimal:
+      name: "最小化配置"
+      description: "仅加载核心必需 Skills"
+      skills:
+        foundational:
+          - "ir-foundation"
+          - "ir-query-analysis"
+    
+    full-text-search:
+      name: "全文搜索"
+      description: "构建全文搜索引擎所需 Skills"
+      extends: "minimal"
+      skills:
+        specializations:
+          search-algorithms:
+            - "ir-inverted-index"
+            - "ir-bm25"
+            - "ir-multi-recall"
+    
+    vector-search:
+      name: "向量搜索"
+      description: "构建向量搜索引擎所需 Skills"
+      extends: "minimal"
+      skills:
+        specializations:
+          search-algorithms:
+            - "ir-vector-similarity"
+          nlp-applications:
+            - "nlp-embedding"
+    
+    knowledge-graph:
+      name: "知识图谱"
+      description: "构建知识图谱所需 Skills"
+      extends: "minimal"
+      skills:
+        specializations:
+          knowledge-graph:
+            - "kg-ontology"
+            - "kg-ner"
+            - "kg-relation-extraction"
+            - "kg-entity-linking"
+    
+    rag-system:
+      name: "RAG系统"
+      description: "构建完整RAG系统所需 Skills"
+      extends: "minimal"
+      skills:
+        foundational:
+          - "ir-query-analysis"
+        specializations:
+          search-algorithms:
+            - "ir-vector-similarity"
+          nlp-applications:
+            - "nlp-embedding"
+        applications:
+          - "app-rag"
+    
+    all:
+      name: "完整配置"
+      description: "加载所有 Skills"
+      skills:
+        foundational: "*"
+        specializations:
+          search-algorithms: "*"
+          knowledge-graph: "*"
+          nlp-applications: "*"
+          information-architecture: "*"
+        applications: "*"
+        tools: "*"
+
+  # ============================================
+  # 缺失 Skill 处理规则 (Missing Skill Handling)
+  # ============================================
+  # 当 Skill 清单中的 Skill 在工作区不存在时的处理策略
+  
+  missing_skill_handling:
+    
+    # 处理策略
+    strategy: "auto_generate"
+    
+    # 策略说明
+    strategy_description: |
+      如果 Skill 清单中的 Skill 在工作区中不存在，
+      分化细胞需要自行分析前场情况，设计并生成对应的 Skill 文件。
+    
+    # 生成流程
+    generation_workflow:
+      
+      - step: 1
+        name: "分析前场情况"
+        description: "分析当前工作区的技术栈、项目结构、已有实现"
+        actions:
+          - "检查工作区目录结构"
+          - "识别已有的相关代码/配置"
+          - "分析项目使用的技术栈"
+          - "了解团队的编码规范"
+          - "识别相关的依赖和工具"
+      
+      - step: 2
+        name: "设计 Skill 内容"
+        description: "基于前场分析，设计 Skill 的具体内容"
+        actions:
+          - "定义 Skill 的核心功能"
+          - "设计 Skill 的输入输出"
+          - "确定 Skill 的粒度级别"
+          - "编写 Skill 的使用示例"
+          - "定义 Skill 的依赖关系"
+      
+      - step: 3
+        name: "生成 Skill 文件"
+        description: "按照模板生成 .skill 文件"
+        output_format: |
+          skills/{category}/{skill-id}.skill
+        template: |
+          ---
+          name: {skill-name}
+          skill_id: {skill-id}
+          description: {description}
+          version: 1.0.0
+          category: {category}
+          granularity: {fine|medium|coarse}
+          tags: [...]
+          generated_from_cell: {cell-id}
+          generated_at: {timestamp}
+          ---
+          
+          # Skill: {skill-name}
+          
+          ## 功能概述
+          {基于前场分析生成的功能描述}
+          
+          ## 使用场景
+          {基于前场分析生成的场景列表}
+          
+          ## 实现方法
+          {基于前场代码生成的实现指南}
+          
+          ## 相关 Skills
+          {自动识别的依赖 Skills}
+      
+      - step: 4
+        name: "验证和注册"
+        description: "验证生成的 Skill 并注册到系统"
+        actions:
+          - "验证 YAML 语法"
+          - "检查文件完整性"
+          - "注册到 Skill 系统"
+          - "更新 Cell 中的引用"
+      
+      - step: 5
+        name: "通知用户"
+        description: "向用户报告生成的 Skill"
+        notification: |
+          已自动生成 Skill: {skill-name}
+          位置: {file-path}
+          基于前场分析: {analysis-summary}
+          
+          请审查生成的 Skill 内容，如有需要可进行调整。
+    
+    # 生成约束
+    constraints:
+      - "生成的 Skill 必须符合 .skill 文件格式规范"
+      - "Skill 的粒度应与清单中定义的一致"
+      - "必须基于前场实际情况，不能凭空想象"
+      - "生成的内容应该是可执行、可验证的"
+      - "需要记录生成依据（前场分析结果）"
+    
+    # 豁免规则
+    exemptions:
+      - condition: "Skill 标记为 optional 且用户明确不需要"
+        action: "跳过生成，记录原因"
+      - condition: "Skill 可由现有 Skill 替代"
+        action: "建立映射关系，更新 Cell 配置"
+      - condition: "前场环境明确不支持该 Skill 功能"
+        action: "标记为 unavailable，记录原因"
+
+  # ============================================
+  # 分化指令映射
+  # ============================================
+  # 分化指令与 Skill 模板的映射
+  
+  differentiation_mapping:
+    
+    # 默认分化 - 使用 minimal 模板
+    default:
+      template: "minimal"
+    
+    # 专精分化
+    specializations:
+      search-algorithms:
+        template: "full-text-search"
+        additional_skills:
+          - "tool-es"
+      
+      knowledge-graph:
+        template: "knowledge-graph"
+        additional_skills:
+          - "tool-neo4j"
+      
+      nlp-applications:
+        template: "vector-search"
+        additional_skills:
+          - "tool-spacy"
+          - "tool-transformers"
+      
+      information-architecture:
+        template: "minimal"
+        additional_skills:
+          specializations:
+            information-architecture:
+              - "ia-taxonomy"
+              - "ia-metadata"
+              - "ia-search-ux"
+
+  # ============================================
+  # Skill 动态加载策略
+  # ============================================
+  loading_strategy:
+    # 按需加载
+    lazy_loading: true
+    
+    # 预加载核心 Skills
+    preload:
+      - "ir-foundation"
+      - "ir-query-analysis"
+    
+    # 热更新支持
+    hot_reload: false
+    
+    # 缓存策略
+    cache:
+      enabled: true
+      ttl: 3600  # 秒
+
+# ============================================
+# 文件格式说明
+# ============================================
+# .cell 文件是 OSCA 的 Skill 清单文件
+#
+# 架构层级:
+#   Seed (职能定义)
+#     ↓ 引用
+#   Cell (Skill 清单 - 本文件)
+#     ↓ 列出
+#   Skills (细粒度执行单元)
+#
+# 设计原则:
+#   1. Skills 应该小而专注（fine granularity）
+#   2. Skills 可以跨 Cell 复用
+#   3. Cell 决定从该 Seed 分化需要哪些 Skills
+#   4. 分化时根据专精选择对应的 Skill 组合
+#
+# 使用流程:
+#   1. 导入 Seed
+#   2. Seed 找到对应的 Cell
+#   3. Cell 根据分化指令选择 Skill 模板
+#   4. 加载模板中的 Skills
+#   5. 完成分化
+#
+# 示例:
+#   /differentiate intelligent-retrieval search-algorithms
+#   → 加载 "full-text-search" 模板中的 Skills
+# ============================================
