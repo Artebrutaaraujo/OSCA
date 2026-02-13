@@ -28,11 +28,9 @@ Thumbs.db
 *.temp
 *.log
 
-# 运行时生成的文件（不应提交）
-memory/*.md
-!memory/.gitkeep
+# 运行时生成的文件
+# memory/*.md  # 允许提交日志文件（已修改规则）
 memory/instances/
-memory/confusion/
 seeds/exported/
 seeds/imported/
 backups/
